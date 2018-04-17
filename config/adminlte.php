@@ -135,6 +135,10 @@ return [
                     'text' => 'Profissões',
                     'url'  => '/profissao',
                 ],
+                [
+                    'text' => 'Especialidades',
+                    'url'  => '/especialidade',
+                ],
             ],
         ],
     ],

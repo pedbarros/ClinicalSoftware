@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Profissao;
+use App\Models\Especialidade;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client as Guzzle;
 use Illuminate\Support\Facades\Route;
 
-class ProfissaoController extends Controller
+class EspecialidadeController extends Controller
 {
-    private $profissao;
+    private $especialidade;
 
-    public function __construct(Profissao $profissao)
+    public function __construct(Especialidade $especialidade)
     {
-        $this->profissao = $profissao;
+        $this->especialidade = $especialidade;
     }
 
     /**
@@ -24,10 +23,10 @@ class ProfissaoController extends Controller
      */
     public function index()
     {
-        $request = Request::create('/api/profissao', 'GET');
-        $profissoes = Route::dispatch($request)->getData();
-     //   dd($profissoes);
-        return view('admin.profissao.index', compact('profissoes'));
+        $request = Request::create('/api/especialidade', 'GET');
+        $especialidades = Route::dispatch($request)->getData();
+     //   dd($especialidades);
+        return view('admin.especialidade.index', compact('especialidades'));
     }
 
     /**
@@ -48,13 +47,14 @@ class ProfissaoController extends Controller
      */
     public function store(Request $request)
     {
-        $request = Request::create('/api/profissao', 'POST', $request->all());
-        $profissao = Route::dispatch($request)->getData();
 
-        if ($profissao) {
+        $request = Request::create('/api/especialidade', 'POST', $request->all());
+        $especialidade = Route::dispatch($request)->getData();
+        //dd($especialidade->getData());
+        if ($especialidade) {
             return redirect()
-                ->route('profissao.index')
-                ->with('success', 'Profissão inserida com sucesso!');
+                ->route('especialidade.index')
+                ->with('success', 'Especialidade inserida com sucesso!');
         } else {
             return redirect()
                 ->back()
@@ -82,8 +82,8 @@ class ProfissaoController extends Controller
      */
     public function edit($id)
     {
-        $profissao = $this->profissao->find($id);
-        return view('admin.profissao.edit', compact('profissao'));
+        $especialidade = $this->especialidade->find($id);
+        return view('admin.especialidade.edit', compact('especialidade'));
     }
 
     /**
@@ -95,13 +95,13 @@ class ProfissaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request = Request::create('/api/profissao/'.$id, 'PUT', $request->all());
-        $profissao = Route::dispatch($request)->getData();
+        $request = Request::create('/api/especialidade/'.$id, 'PUT', $request->all());
+        $especialidade = Route::dispatch($request)->getData();
 
-        if ($profissao) {
+        if ($especialidade) {
             return redirect()
-                ->route('profissao.index')
-                ->with('success', 'Profissão atualizada com sucesso!');
+                ->route('$especialidade.index')
+                ->with('success', 'Especialidade atualizada com sucesso!');
         } else {
             return redirect()
                 ->back()

@@ -8,6 +8,7 @@ $this->group(['middleware' => ['auth']], function () {
     $this->group(['namespace' => 'Admin'], function () {
         $this->get('/', 'HomeController@index')->name('home');
         $this->resource('profissao', 'ProfissaoController');
+        $this->resource('especialidade', 'EspecialidadeController');
     });
 });
 

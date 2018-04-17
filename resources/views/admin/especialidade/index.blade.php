@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Cadastro de Profissão - Clínica Software')
+@section('title', 'Cadastro de Especialidade - Clínica Software')
 
 @section('content_header')
-    <h1>Cadastro de profissões</h1>
+    <h1>Cadastro de Especialidades</h1>
 @stop
 
 @section('content')
@@ -29,40 +29,40 @@
                 <div class=" row">
                     <div class="col-sm-3">
                         <label for="name">Nome</label>
-                        <input type="text" value="Enfermeira" name="descricao" placeholder="Descrição" class="form-control">
+                        <input type="text" value="{{  old('nome') }}" name="nome" placeholder="Nome" class="form-control">
                     </div>
                     <div class="col-sm-3">
-                        <label for="name">Status</label>
-                        <input type="text" value="A" name="status" placeholder="Status" class="form-control">
+                        <label for="name">Descrição</label>
+                        <input type="text" value="{{ old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control">
                     </div>
                 </div>
             </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Salvar Profissão</button>
+            <button type="submit" class="btn btn-danger">Salvar Especialidade</button>
         </div>
     </form>
 
-    <h2>Lista de profissões</h2>
+    <h2>Lista de Especialidades</h2>
     <div class="box-body">
         <table class="table table-bordered table-hover">
             <thead>
             <tr>
                 <th>#</th>
+                <th>Nome</th>
                 <th>Descrição</th>
-                <th>Status</th>
                 <th>Ações</th>
             <tr>
             </thead>
             <tbody>
-            @forelse($profissoes as $profissao)
+            @forelse($especialidades as $especialidade)
                 <tr>
-                    <td>{{ $profissao->id }}</td>
-                    <td>{{ $profissao->descricao }}</td>
-                    <td>{{ $profissao->status }}</td>
+                    <td>{{ $especialidade->id }}</td>
+                    <td>{{ $especialidade->nome }}</td>
+                    <td>{{ $especialidade->descricao }}</td>
                     <td>
-                        <a class="btn btn-primary" href="{{ route('profissao.edit', $profissao->id) }}">Editar</a>
-                        <a class="btn btn-info" href="{{ route('profissao.destroy', $profissao->id) }}">Deletar</a>
+                        <a class="btn btn-primary" href="{{ route('especialidade.edit', $especialidade->id) }}">Editar</a>
+                        <a class="btn btn-info" href="{{ route('especialidade.destroy', $especialidade->id) }}">Deletar</a>
                     </td>
                 <tr>
             @empty
