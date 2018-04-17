@@ -27,5 +27,26 @@
         </div>
     </form>
 
-
+    <div class="box-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Ações</th>
+            <tr>
+            </thead>
+            <tbody>
+            @forelse($profissoes as $profissao)
+                <tr>
+                    <td>{{ $profissao->id }}</td>
+                    <td>{{ $profissao->descricao }}</td>
+                    <td>{{ $profissao->status }}</td>
+                <tr>
+            @empty
+            @endforelse
+            </tbody>
+        </table>
+    </div>
 @stop

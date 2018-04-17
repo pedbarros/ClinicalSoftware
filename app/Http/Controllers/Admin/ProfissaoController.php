@@ -22,13 +22,12 @@ class ProfissaoController extends Controller
      */
     public function index()
     {
-        $req = Request::create('/api/profissao', 'GET');
-        $res = app()->handle($req);
-        $profissoes = json_decode($res->getContent());
-        dd($profissoes);
-        ///$response = $this->guzzle->get('http://127.0.0.1:8000/api/profissao/');
-       //
-        return view('admin.profissao.index');
+        /*$request = Request::create('api/profissao', 'GET');
+        $response = Route::dispatch($request);
+        $profissoes = json_decode($response->getContent());*/
+        $profissoes = api('api.profissao.store', 'POST');
+// dd($profissoes);
+        return view('admin.profissao.index'/*, compact('profissoes')*/);
     }
 
     /**

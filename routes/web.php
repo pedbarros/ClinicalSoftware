@@ -1,18 +1,6 @@
 <?php
-use GuzzleHttp\Client as Guzzle;
 
-Route::get('/salvar', function (Request $request) {
-    $guzzle = new Guzzle;
-    $result = $guzzle->post('http://127.0.0.1:8000/api/profissao',
-        ['body' => json_encode(
-            [
-                'descricao' => 'Engenheiro Civil',
-                'status' => 'A',
-            ]
-        )]
-    );
-    dd($result->getBody()->getContents());
-});
+
 
 // ROTAS QUE NECESSITAM DE AUTENTICAÇÃO
 $this->group(['middleware' => ['auth']], function () {
@@ -20,6 +8,14 @@ $this->group(['middleware' => ['auth']], function () {
     $this->group(['namespace' => 'Admin'], function () {
         $this->get('/', 'HomeController@index')->name('home');
         $this->resource('profissao', 'ProfissaoController');
+
+        Route::get('/salvar', function () {
+
+            $request = Request::create('api/profissao', 'GET');
+            $response = $this->dispatch($request);
+            $profissoes = $response->getData();
+            return view('admin.profissao.index', compact('profissoes'));
+        });
     });
 });
 
