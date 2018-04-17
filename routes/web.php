@@ -8,14 +8,6 @@ $this->group(['middleware' => ['auth']], function () {
     $this->group(['namespace' => 'Admin'], function () {
         $this->get('/', 'HomeController@index')->name('home');
         $this->resource('profissao', 'ProfissaoController');
-
-        Route::get('/salvar', function () {
-
-            $request = Request::create('api/profissao', 'GET');
-            $response = $this->dispatch($request);
-            $profissoes = $response->getData();
-            return view('admin.profissao.index', compact('profissoes'));
-        });
     });
 });
 

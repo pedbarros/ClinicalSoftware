@@ -162,7 +162,7 @@ return [
 
 
         JeroenNoten\LaravelAdminLte\ServiceProvider::class,
-        Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
+        'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 
     ],
 

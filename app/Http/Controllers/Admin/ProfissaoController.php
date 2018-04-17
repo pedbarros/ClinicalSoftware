@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Profissao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client as Guzzle;
+use Illuminate\Support\Facades\Route;
 
 class ProfissaoController extends Controller
 {
-    private $guzzle;
+    private $profissao;
 
-    public function __construct(Guzzle $guzzle)
+    public function __construct(Profissao $profissao)
     {
-        $this->guzzle = $guzzle;
+        $this->profissao = $profissao;
     }
 
     /**
@@ -22,12 +24,10 @@ class ProfissaoController extends Controller
      */
     public function index()
     {
-        /*$request = Request::create('api/profissao', 'GET');
-        $response = Route::dispatch($request);
-        $profissoes = json_decode($response->getContent());*/
-        $profissoes = api('api.profissao.store', 'POST');
-// dd($profissoes);
-        return view('admin.profissao.index'/*, compact('profissoes')*/);
+        $request = Request::create('/api/profissao', 'GET');
+        $profissoes = Route::dispatch($request)->getData();
+     //   dd($profissoes);
+        return view('admin.profissao.index', compact('profissoes'));
     }
 
     /**
@@ -48,10 +48,18 @@ class ProfissaoController extends Controller
      */
     public function store(Request $request)
     {
-        $req = Request::create('/api/profissao', 'POST', $request->all());
-        $res = app()->handle($req);
-        $responseBody = $res->getContent();
-        dd($responseBody);
+        $request = Request::create('/api/profissao', 'POST', $request->all());
+        $profissao = Route::dispatch($request)->getData();
+
+        if ($profissao) {
+            return redirect()
+                ->route('profissao.index')
+                ->with('success', 'Profissão inserida com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao inserir');
+        }
 
     }
 
@@ -63,7 +71,7 @@ class ProfissaoController extends Controller
      */
     public function show($id)
     {
-        //
+        return "Entrou no show";
     }
 
     /**
@@ -74,7 +82,8 @@ class ProfissaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $profissao = $this->profissao->find($id);
+        return view('admin.profissao.edit', compact('profissao'));
     }
 
     /**
@@ -86,7 +95,18 @@ class ProfissaoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request = Request::create('/api/profissao/'.$id, 'PUT', $request->all());
+        $profissao = Route::dispatch($request)->getData();
+
+        if ($profissao) {
+            return redirect()
+                ->route('profissao.index')
+                ->with('success', 'Profissão atualizada com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao atualizar');
+        }
     }
 
     /**

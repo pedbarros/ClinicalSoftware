@@ -9,17 +9,10 @@ use App\Http\Controllers\Controller;
 
 class ProfissaoController extends Controller
 {
-    private $profissao;
-
-    public function __construct(Profissao $profissao)
-    {
-        $this->profissao = $profissao;
-    }
-
     // SELECT * FROM ALL
     public function index()
     {
-        return response()->json($this->profissao->all(), 201);
+        return response()->json(Profissao::all(), 201);
     }
 
     // INSERT
@@ -34,42 +27,41 @@ class ProfissaoController extends Controller
             return response()->json(['error' => 'Os campos não foram validados'], 401);
         }
 
-        $profissao = $this->profissao->create($request->all());
+        $profissao = Profissao::create($request->all());
 
         return response()->json($profissao, 201);
     }
-/*
+    /*
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
         return new ProductResource(Product::find($id));
     }
 
-
+    */
 
     // UPDATE
-    public function update(Request $request)
+    public function update(Request $request, Profissao $profissao)
     {
+        //dd($profissao);
         $validator = Validator::make($request->all(), [
-            'name' => 'string|max:255',
-            'price' => 'integer',
-            'category_id' => 'integer',
+            'descricao' => 'required|string|max:255'
         ]);
 
         if ($validator->fails()) {
             return response()->json(['error' => 'Os campos não foram validados'], 401);
         }
 
-        $product->update($request->all());
+        $profissao->update($request->all());
 
-        return response()->json($product, 200);
+        return response()->json($profissao, 200);
     }
 
     // DELETE
-    public function destroy(Product $product)
+    public function destroy(Profissao $profissao)
     {
-        $product->delete();
+        $profissao->delete();
 
         return response()->json(null, 204);
-    }*/
+    }
 }
