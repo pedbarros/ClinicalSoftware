@@ -139,6 +139,10 @@ return [
                     'text' => 'Especialidades',
                     'url'  => '/especialidade',
                 ],
+                [
+                    'text' => 'Planos de Saúde',
+                    'url'  => '/plano',
+                ],
             ],
         ],
     ],
