@@ -100,7 +100,7 @@ class EspecialidadeController extends Controller
 
         if ($especialidade) {
             return redirect()
-                ->route('$especialidade.index')
+                ->route('especialidade.index')
                 ->with('success', 'Especialidade atualizada com sucesso!');
         } else {
             return redirect()

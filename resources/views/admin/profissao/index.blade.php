@@ -32,8 +32,11 @@
                         <input type="text" value="Enfermeira" name="descricao" placeholder="Descrição" class="form-control">
                     </div>
                     <div class="col-sm-3">
-                        <label for="name">Status</label>
-                        <input type="text" value="A" name="status" placeholder="Status" class="form-control">
+                        <label>Status</label>
+                        <select class="form-control" name="status">
+                            <option value="A">Ativo</option>
+                            <option value="I">Inativo</option>
+                        </select>
                     </div>
                 </div>
             </div>

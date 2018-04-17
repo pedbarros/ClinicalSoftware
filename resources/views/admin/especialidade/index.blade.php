@@ -33,7 +33,7 @@
                     </div>
                     <div class="col-sm-3">
                         <label for="name">Descrição</label>
-                        <input type="text" value="{{ old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control">
+                        <input type="text" value="{{ old('descricao) }}" name="descricao" placeholder="Descrição" class="form-control">
                     </div>
                 </div>
             </div>
