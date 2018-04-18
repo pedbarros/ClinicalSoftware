@@ -20,4 +20,9 @@ class Especialidade extends Model
             'profissao_id')->withPivot('status');
     }
 
+    public function profissional()
+    {
+        return $this->hasMany('App\Models\Profissional', 'profissional_id');
+    }
+
 }

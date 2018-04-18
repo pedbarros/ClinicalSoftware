@@ -19,6 +19,7 @@ Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function ()
     $this->resource('especialidade', 'EspecialidadeController');
     $this->resource('plano', 'PlanoController');
     $this->resource('horario', 'HorarioController');
+    $this->resource('profissional', 'ProfissionalController');
 
 
 
