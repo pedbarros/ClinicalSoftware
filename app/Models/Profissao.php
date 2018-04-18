@@ -9,14 +9,15 @@ class Profissao extends Model
     protected $table = 'profissoes';
 
     protected $fillable = [
-        'descricao', 'status'
+        'descricao'
     ];
 
     public $timestamps = false;
 
 
-    /*public function category()
+    public function especialidades()
     {
-        return $this->belongsTo('\App\Models\Category');
-    }*/
+        return $this->belongsToMany('App\Models\Especialidade', 'especialidade_profissoes', 'profissao_id',
+            'especialidade_id')->withPivot('status');
+    }
 }

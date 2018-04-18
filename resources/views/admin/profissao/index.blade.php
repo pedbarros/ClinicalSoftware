@@ -25,21 +25,14 @@
 
     <form action="" method="POST" enctype="multipart/form-data">
         {!! csrf_field() !!}
-            <div class="form-group">
-                <div class=" row">
-                    <div class="col-sm-3">
-                        <label for="name">Nome</label>
-                        <input type="text" value="Enfermeira" name="descricao" placeholder="Descrição" class="form-control">
-                    </div>
-                    <div class="col-sm-3">
-                        <label>Status</label>
-                        <select class="form-control" name="status">
-                            <option value="A">Ativo</option>
-                            <option value="I">Inativo</option>
-                        </select>
-                    </div>
+        <div class="form-group">
+            <div class=" row">
+                <div class="col-sm-3">
+                    <label for="descricao">Nome</label>
+                    <input type="text" value="Enfermeira" name="descricao" placeholder="Descrição" class="form-control" required>
                 </div>
             </div>
+        </div>
 
         <div class="form-group">
             <button type="submit" class="btn btn-danger">Salvar Profissão</button>
@@ -53,7 +46,6 @@
             <tr>
                 <th>#</th>
                 <th>Descrição</th>
-                <th>Status</th>
                 <th>Ações</th>
             <tr>
             </thead>
@@ -62,10 +54,14 @@
                 <tr>
                     <td>{{ $profissao->id }}</td>
                     <td>{{ $profissao->descricao }}</td>
-                    <td>{{ $profissao->status }}</td>
-                    <td>
+                    <td style="display: inline-flex;">
                         <a class="btn btn-primary" href="{{ route('profissao.edit', $profissao->id) }}">Editar</a>
-                        <a class="btn btn-info" href="{{ route('profissao.destroy', $profissao->id) }}">Deletar</a>
+                        <form action="{{ route('profissao.destroy', $profissao->id) }}" method="POST">
+                            {{ method_field('DELETE') }}{{csrf_field()}}
+                            <a onclick="return confirm('Deseja realmente deletar a profissão {{  $profissao->descricao  }}?')? this.parentNode.submit() : void(0);"
+                               class="btn btn-info">Apagar
+                            </a>
+                        </form>
                     </td>
                 <tr>
             @empty

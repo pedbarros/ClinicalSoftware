@@ -20,7 +20,6 @@ class ProfissaoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'descricao' => 'required|string|max:255',
-            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -31,19 +30,18 @@ class ProfissaoController extends Controller
 
         return response()->json($profissao, 201);
     }
-    /*
+
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return new ProductResource(Product::find($id));
+        return response()->json(Profissao::find($id), 201);
     }
 
-    */
+
 
     // UPDATE
     public function update(Request $request, Profissao $profissao)
     {
-        //dd($profissao);
         $validator = Validator::make($request->all(), [
             'descricao' => 'required|string|max:255'
         ]);
@@ -52,7 +50,7 @@ class ProfissaoController extends Controller
             return response()->json(['error' => 'Os campos não foram validados'], 401);
         }
 
-        $profissao->update($request->all());
+        $profissao->update( $request->all() );
 
         return response()->json($profissao, 200);
     }

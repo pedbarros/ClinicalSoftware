@@ -31,14 +31,12 @@ class EspecialidadeController extends Controller
 
         return response()->json($especialidade, 201);
     }
-    /*
+
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return new ProductResource(Product::find($id));
+        return response()->json(Especialidade::find($id), 201);
     }
-
-    */
 
     // UPDATE
     public function update(Request $request, Especialidade $especialidade)

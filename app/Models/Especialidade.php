@@ -14,4 +14,10 @@ class Especialidade extends Model
 
     public $timestamps = false;
 
+    public function profissoes()
+    {
+        return $this->belongsToMany('App\Models\Profissao', 'especialidade_profissoes', 'profissao_id',
+            'especialidade_id')->withPivot('status');
+    }
+
 }

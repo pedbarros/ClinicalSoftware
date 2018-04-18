@@ -29,11 +29,11 @@
                 <div class=" row">
                     <div class="col-sm-3">
                         <label for="name">Nome</label>
-                        <input type="text" value="{{  old('nome') }}" name="nome" placeholder="Nome" class="form-control">
+                        <input type="text" value="{{  old('nome') }}" name="nome" placeholder="Nome" class="form-control" required>
                     </div>
                     <div class="col-sm-3">
                         <label for="name">Descrição</label>
-                        <input type="text" value="{{ old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control">
+                        <input type="text" value="{{ old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -45,29 +45,37 @@
 
     <h2>Lista de Especialidades</h2>
     <div class="box-body">
-        <table class="table table-bordered table-hover">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Descrição</th>
-                <th>Ações</th>
-            <tr>
-            </thead>
-            <tbody>
-            @forelse($especialidades as $especialidade)
+        @if($especialidades)
+            <table class="table table-bordered table-hover">
+                <thead>
                 <tr>
-                    <td>{{ $especialidade->id }}</td>
-                    <td>{{ $especialidade->nome }}</td>
-                    <td>{{ $especialidade->descricao }}</td>
-                    <td>
-                        <a class="btn btn-primary" href="{{ route('especialidade.edit', $especialidade->id) }}">Editar</a>
-                        <a class="btn btn-info" href="{{ route('especialidade.destroy', $especialidade->id) }}">Deletar</a>
-                    </td>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
                 <tr>
-            @empty
-            @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @forelse($especialidades as $especialidade)
+                    <tr>
+                        <td>{{ $especialidade->id }}</td>
+                        <td>{{ $especialidade->nome }}</td>
+                        <td>{{ $especialidade->descricao }}</td>
+                        <td style="display: inline-flex;">
+                            <a class="btn btn-primary" href="{{ route('especialidade.edit', $especialidade->id) }}">Editar</a>
+                            <form action="{{ route('especialidade.destroy', $especialidade->id) }}" method="POST">
+                                {{ method_field('DELETE') }}{{csrf_field()}}
+                                <a onclick="return confirm('Deseja realmente deletar a especialidade {{  $especialidade->nome  }}?')? this.parentNode.submit() : void(0);"
+                                   class="btn btn-info">Apagar
+                                </a>
+                            </form>
+                        </td>
+                    <tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <p>Não há especialidades cadastradas</p>
+        @endif
     </div>
 @stop

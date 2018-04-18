@@ -10,5 +10,6 @@ Route::get('auth/logout', 'API\AuthController@logout');
 Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function () {
     $this->resource('profissao', 'ProfissaoController');
     $this->resource('especialidade', 'EspecialidadeController');
+    Route::resource('especialidade.profissao', 'EspecialidadeProfissoesController');  // especialidade/#/profissao/#
     $this->resource('plano', 'PlanoController');
 });

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Profissao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client as Guzzle;
 use Illuminate\Support\Facades\Route;
 
 class ProfissaoController extends Controller
@@ -25,8 +24,7 @@ class ProfissaoController extends Controller
     public function index()
     {
         $request = Request::create('/api/profissao', 'GET');
-        $profissoes = Route::dispatch($request)->getData();
-     //   dd($profissoes);
+        $profissoes = json_decode(Route::dispatch($request)->getContent());
         return view('admin.profissao.index', compact('profissoes'));
     }
 
@@ -49,7 +47,7 @@ class ProfissaoController extends Controller
     public function store(Request $request)
     {
         $request = Request::create('/api/profissao', 'POST', $request->all());
-        $profissao = Route::dispatch($request)->getData();
+        $profissao = json_decode(Route::dispatch($request)->getContent());
 
         if ($profissao) {
             return redirect()
@@ -82,8 +80,9 @@ class ProfissaoController extends Controller
      */
     public function edit($id)
     {
+        $profissoes = $this->profissao->all();
         $profissao = $this->profissao->find($id);
-        return view('admin.profissao.edit', compact('profissao'));
+        return view('admin.profissao.edit', compact('profissao', 'profissoes'));
     }
 
     /**
@@ -96,8 +95,8 @@ class ProfissaoController extends Controller
     public function update(Request $request, $id)
     {
         $request = Request::create('/api/profissao/'.$id, 'PUT', $request->all());
-        $profissao = Route::dispatch($request)->getData();
-
+        $profissao = json_decode(Route::dispatch($request)->getContent());
+// dd($profissao);
         if ($profissao) {
             return redirect()
                 ->route('profissao.index')
@@ -117,6 +116,17 @@ class ProfissaoController extends Controller
      */
     public function destroy($id)
     {
-        dd("easdsa");
+        $request = Request::create('/api/profissao/'.$id, 'DELETE');
+        $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
+        //dd($statusCode);
+        if ($statusCode == 204) { // No Content
+            return redirect()
+                ->route('profissao.index')
+                ->with('success', 'Profissão apagada com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao apagar');
+        }
     }
 }

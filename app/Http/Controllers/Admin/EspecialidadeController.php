@@ -24,8 +24,8 @@ class EspecialidadeController extends Controller
     public function index()
     {
         $request = Request::create('/api/especialidade', 'GET');
-        $especialidades = Route::dispatch($request)->getData();
-     //   dd($especialidades);
+        $especialidades = json_decode(Route::dispatch($request)->getContent());
+        /// dd($especialidades);
         return view('admin.especialidade.index', compact('especialidades'));
     }
 
@@ -47,10 +47,9 @@ class EspecialidadeController extends Controller
      */
     public function store(Request $request)
     {
-
         $request = Request::create('/api/especialidade', 'POST', $request->all());
-        $especialidade = Route::dispatch($request)->getData();
-        //dd($especialidade->getData());
+        $especialidade = json_decode(Route::dispatch($request)->getContent());
+
         if ($especialidade) {
             return redirect()
                 ->route('especialidade.index')
@@ -96,8 +95,8 @@ class EspecialidadeController extends Controller
     public function update(Request $request, $id)
     {
         $request = Request::create('/api/especialidade/'.$id, 'PUT', $request->all());
-        $especialidade = Route::dispatch($request)->getData();
-
+        $especialidade = json_decode(Route::dispatch($request)->getContent());
+// dd($profissao);
         if ($especialidade) {
             return redirect()
                 ->route('especialidade.index')
@@ -117,6 +116,17 @@ class EspecialidadeController extends Controller
      */
     public function destroy($id)
     {
-        dd("easdsa");
+        $request = Request::create('/api/especialidade/'.$id, 'DELETE');
+        $statusCode =  Route::dispatch($request)->getStatusCode();
+ //dd($statusCode);
+        if ($statusCode == 204) { // No Content
+            return redirect()
+                ->route('especialidade.index')
+                ->with('success', 'Especialidade apagada com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao apagar');
+        }
     }
 }

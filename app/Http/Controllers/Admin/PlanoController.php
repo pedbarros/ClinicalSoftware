@@ -24,8 +24,14 @@ class PlanoController extends Controller
     public function index()
     {
         $request = Request::create('/api/plano', 'GET');
-        $planos = Route::dispatch($request)->getData();
-     //   dd($planos);
+        $planos = json_decode(Route::dispatch($request)->getContent());
+
+        /*if (!empty($planos)) {
+            dd("Tem valores");
+        }else{
+            dd("Não tem valores");
+        }*/
+
         return view('admin.plano.index', compact('planos'));
     }
 
@@ -48,8 +54,8 @@ class PlanoController extends Controller
     public function store(Request $request)
     {
         $request = Request::create('/api/plano', 'POST', $request->all());
-        $plano = Route::dispatch($request)->getData();
-
+        $plano = json_decode(Route::dispatch($request)->getContent());
+// dd($plano);
         if ($plano) {
             return redirect()
                 ->route('plano.index')
@@ -95,7 +101,7 @@ class PlanoController extends Controller
     public function update(Request $request, $id)
     {
         $request = Request::create('/api/plano/'.$id, 'PUT', $request->all());
-        $plano = Route::dispatch($request)->getData();
+        $plano = json_decode(Route::dispatch($request)->getContent());
 
         if ($plano) {
             return redirect()
@@ -116,6 +122,17 @@ class PlanoController extends Controller
      */
     public function destroy($id)
     {
-        dd("easdsa");
+        $request = Request::create('/api/plano/'.$id, 'DELETE');
+        $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
+        //dd($statusCode);
+        if ($statusCode == 204) { // No Content
+            return redirect()
+                ->route('plano.index')
+                ->with('success', 'Plano apagada com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao apagar');
+        }
     }
 }
