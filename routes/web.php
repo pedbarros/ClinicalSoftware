@@ -11,6 +11,7 @@ $this->group(['middleware' => ['auth']], function () {
         $this->resource('especialidade', 'EspecialidadeController');
         $this->resource('especialidade-profissao', 'EspecialidadeProfissoesController');
         $this->resource('plano', 'PlanoController');
+        $this->resource('horario-profissional','HorarioController');
     });
 });
 

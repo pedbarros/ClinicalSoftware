@@ -129,7 +129,7 @@
     </div>
     <!-- ./wrapper -->
 @stop
-
+@stack('script_opcionais')
 @section('adminlte_js')
     <script src="{{ asset('vendor/adminlte/dist/js/adminlte.min.js') }}"></script>
     @stack('js')

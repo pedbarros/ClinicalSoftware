@@ -29,6 +29,7 @@
     @endif
 
     @yield('adminlte_css')
+    @yield('styles')
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -61,6 +62,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
 @endif
 
+@stack('scripts')
 @yield('adminlte_js')
 
 </body>

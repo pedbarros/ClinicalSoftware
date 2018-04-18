@@ -143,6 +143,14 @@ return [
                     'text' => 'Planos de Saúde',
                     'url'  => '/plano',
                 ],
+                [
+                    'text' => 'Profissionais',
+                    'url'  => '/profissional',
+                ],
+                [
+                    'text' => 'Horários',
+                    'url'  => '/horario-profissional',
+                ],
             ],
         ],
         [

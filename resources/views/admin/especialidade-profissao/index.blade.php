@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Adicionar uma especialidade')
+@section('title', 'Adicionar uma especialidade a uma profissão')
 
 @section('content_header')
-    <h1>Adicionar uma especialidade</h1>
+    <h1>Adicionar uma especialidade a uma profissão</h1>
 @stop
 
 @section('content')
@@ -61,7 +61,7 @@
         </div>
     </form>
 
-    <h2>Lista de Especialidades</h2>
+    <h2>Lista de Profissões e suas respectivas especialidades</h2>
     <div class="box-body">
         @if($especialidades_profissoes)
             <table class="table table-bordered table-hover">
