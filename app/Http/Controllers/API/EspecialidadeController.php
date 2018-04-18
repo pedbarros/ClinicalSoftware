@@ -35,6 +35,7 @@ class EspecialidadeController extends Controller
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
+        // dd("Pedron");
         return response()->json(Especialidade::find($id), 201);
     }
 

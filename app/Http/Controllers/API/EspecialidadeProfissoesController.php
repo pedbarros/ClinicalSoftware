@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Resources\EspecialidadeProfissoesResource;
 use App\Models\Especialidade;
 use App\Models\Profissao;
 use Illuminate\Http\Request;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Controller;
 
 class EspecialidadeProfissoesController extends Controller
 {
-
     private $especialidade;
     private $profissao;
 
@@ -27,58 +27,59 @@ class EspecialidadeProfissoesController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        //dd(json_encode(Profissao::with('especialidades')->get()));
+        return response()->json($this->profissao->with('especialidades')->get(), 201);
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * http://127.0.0.1:8000/api/especialidade/8/profissao/1000 via BODY (status => A ou I)
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($especialidade_id, $profissao_id, Request $request)
     {
-        //
+        try {
+            $especialidade = $this->especialidade->find($especialidade_id);
+
+            $especialidade->profissoes()->attach($profissao_id, ['status' => $request["status"]]);
+
+            return response()->json(['store' => true, 'msg' => 'Inserido com sucesso'], 201);
+        } catch (\Exception $e) {
+            // dd($e);
+            return response()->json(['store' => false, 'msg' => 'Não foi possível inserir'], 500);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $especialidade_id
-     * @param  int  $profissao_id
+     * @param  int $especialidade_id
+     * @param  int $profissao_id
      * @return \Illuminate\Http\Response
      */
-    public function show($especialidade_id, $profissao_id) {
-        dd($especialidade_id . ' - ' . $profissao_id);
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function show($especialidade_id, $profissao_id)
     {
-        //
+        // dd($especialidade_id . ' - ' . $profissao_id);
+        $especialidade = $this->especialidade->find($especialidade_id);
+        echo "<b>{$especialidade->nome}:</b><br>";
+
+        $especialidade->profissoes()->attach($profissao_id);
+        //$company->cities()->sync($dataForm);
+        // $company->cities()->detach([4]);
+
+        $profissoes = $especialidade->profissoes;
+        foreach ($profissoes as $profissao) {
+            echo " {$profissao->descricao}, ";
+        }
+
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -89,11 +90,13 @@ class EspecialidadeProfissoesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $especialidade_id
-     * @param  int  $profissao_id
+     * @param  int $especialidade_id
+     * @param  int $profissao_id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($especialidade_id, $profissao_id) {
+    public function destroy($especialidade_id, $profissao_id)
+    {
+        // dd($especialidade_id . ' - ' . $profissao_id . "destroy");
         $profissao = $this->profissao->findOrFail($profissao_id);
         $delete = $profissao->especialidades()->detach($especialidade_id);
         if ($delete > 0)

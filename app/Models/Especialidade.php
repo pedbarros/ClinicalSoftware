@@ -16,8 +16,8 @@ class Especialidade extends Model
 
     public function profissoes()
     {
-        return $this->belongsToMany('App\Models\Profissao', 'especialidade_profissoes', 'profissao_id',
-            'especialidade_id')->withPivot('status');
+        return $this->belongsToMany('App\Models\Profissao', 'especialidade_profissoes', 'especialidade_id',
+            'profissao_id')->withPivot('status');
     }
 
 }

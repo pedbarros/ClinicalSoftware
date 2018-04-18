@@ -3,17 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Especialidade;
+use App\Models\Profissao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
-class EspecialidadeController extends Controller
+class EspecialidadeProfissoesController extends Controller
 {
     private $especialidade;
+    private $profissao;
 
-    public function __construct(Especialidade $especialidade)
+    public function __construct(Especialidade $especialidade, Profissao $profissao)
     {
         $this->especialidade = $especialidade;
+        $this->profissao = $profissao;
     }
 
     /**
@@ -25,8 +28,14 @@ class EspecialidadeController extends Controller
     {
         $request = Request::create('/api/especialidade', 'GET');
         $especialidades = json_decode(Route::dispatch($request)->getContent());
-        /// dd($especialidades);
-        return view('admin.especialidade.index', compact('especialidades'));
+
+        $request = Request::create('/api/profissao', 'GET');
+        $profissoes = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('api/especialidade/profissao', 'GET');
+        $especialidades_profissoes = json_decode(Route::dispatch($request)->getContent());
+
+        return view('admin.especialidade-profissao.index', compact('especialidades', 'profissoes', 'especialidades_profissoes'));
     }
 
     /**
@@ -39,6 +48,7 @@ class EspecialidadeController extends Controller
         //
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -47,17 +57,18 @@ class EspecialidadeController extends Controller
      */
     public function store(Request $request)
     {
-        $request = Request::create('/api/especialidade', 'POST', $request->all());
-        $especialidade = json_decode(Route::dispatch($request)->getContent());
 
-        if ($especialidade) {
+        $req = Request::create('/api/especialidade/' . $request["especialidade_id"] . '/profissao/' . $request["profissao_id"] , 'POST', $request->all());
+        $especialidade_profissao =  Route::dispatch($req)->getData() ;
+
+        if ($especialidade_profissao->store == true) {
             return redirect()
-                ->route('especialidade.index')
-                ->with('success', 'Especialidade inserida com sucesso!');
+                ->route('especialidade-profissao.index')
+                ->with('success', 'Especialidade adicionada a profissão com sucesso!');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao inserir');
+                ->with('error', 'Falha ao inserir a especialidade a profissão!');
         }
 
     }
@@ -82,7 +93,7 @@ class EspecialidadeController extends Controller
     public function edit($id)
     {
         $especialidade = $this->especialidade->find($id);
-        return view('admin.especialidade.edit', compact('especialidade'));
+        return view('admin.especialidade-profissao.edit', compact('especialidade'));
     }
 
     /**
@@ -99,7 +110,7 @@ class EspecialidadeController extends Controller
 // dd($profissao);
         if ($especialidade) {
             return redirect()
-                ->route('especialidade.index')
+                ->route('especialidade-profissao.index')
                 ->with('success', 'Especialidade atualizada com sucesso!');
         } else {
             return redirect()
@@ -114,20 +125,20 @@ class EspecialidadeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-
-        $request = Request::create('/api/especialidade/'.$id, 'DELETE');
+        // dd($request->all());
+        $request = Request::create('/api/especialidade/'. $request["especialidade_id"] .'/profissao/'.$request["profissao_id"], 'DELETE');
         $statusCode =  Route::dispatch($request)->getStatusCode();
  //dd($statusCode);
         if ($statusCode == 204) { // No Content
             return redirect()
-                ->route('especialidade.index')
-                ->with('success', 'Especialidade apagada com sucesso!');
+                ->route('especialidade-profissao.index')
+                ->with('success', 'Especialidades de uma profissão apagada com sucesso!');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao apagar');
+                ->with('error', 'Falha ao apagar especialidades de uma profissão');
         }
     }
 }

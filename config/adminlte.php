@@ -145,6 +145,16 @@ return [
                 ],
             ],
         ],
+        [
+            'text'    => 'Adicionar',
+            'icon'    => 'share',
+            'submenu' => [
+                [
+                    'text' => 'Especialidades a uma Profissão',
+                    'url'  => '/especialidade-profissao',
+                ]
+            ],
+        ],
     ],
 
     /*

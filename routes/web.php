@@ -9,6 +9,7 @@ $this->group(['middleware' => ['auth']], function () {
         $this->get('/', 'HomeController@index')->name('home');
         $this->resource('profissao', 'ProfissaoController');
         $this->resource('especialidade', 'EspecialidadeController');
+        $this->resource('especialidade-profissao', 'EspecialidadeProfissoesController');
         $this->resource('plano', 'PlanoController');
     });
 });
