@@ -26,63 +26,70 @@ class ProfissionalController extends Controller
         $request = Request::create('/api/profissional', 'GET');
         $profissionais = json_decode(Route::dispatch($request)->getContent());
         // dd($profissionais);
-        return view('admin.profissional.index', compact('profissionais'));
+
+        $request = Request::create('/api/especialidade', 'GET');
+        $especialidades = json_decode(Route::dispatch($request)->getContent());
+        /// dd($especialidades);
+        return view('admin.profissional.index', compact('profissionais', 'especialidades'));
     }
 
 
-    /*public function store(Request $request)
+    public function store(Request $request)
     {
-        //dd($request->all());
-        $request = Request::create('/api/horario', 'POST', $request->all());
-        $horario = json_decode(Route::dispatch($request)->getContent());
-
-        if ($horario) {
+        // dd($request->all());
+        $request = Request::create('/api/profissional', 'POST', $request->all());
+        $profissional = json_decode(Route::dispatch($request)->getContent());
+//dd($profissional);
+        if ($profissional) {
             return redirect()
-                ->route('horario-profissional.index')
-                ->with('success', 'Horário inserido com sucesso!');
+                ->route('profissional.index')
+                ->with('success', 'Profissional inserido com sucesso!');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao inserir o horário');
+                ->with('error', 'Falha ao inserir o profissional');
         }
 
     }
 
-        public function edit($id)
-        {
-            $horarios = $this->horario->all();
-            $horario = $this->horario->find($id);
-            return view('admin.horario-profissional.edit', compact('horario', 'horarios'));
-        }
+    public function edit($id)
+    {
+        $profissionais = $this->profissional->all();
+        $profissional = $this->profissional->find($id);
+        $request = Request::create('/api/especialidade', 'GET');
+        $especialidades = json_decode(Route::dispatch($request)->getContent());
 
-        public function update(Request $request, $id)
-        {
-            $request = Request::create('/api/horario/'.$id, 'PUT', $request->all());
-            $horario = json_decode(Route::dispatch($request)->getContent());
-            if ($horario) {
-                return redirect()
-                    ->route('horario-profissional.index')
-                    ->with('success', 'Horario atualizado com sucesso!');
-            } else {
-                return redirect()
-                    ->back()
-                    ->with('error', 'Falha ao atualizar o horario');
-            }
-        }
+        return view('admin.profissional.edit', compact('profissional', 'profissionais', 'especialidades'));
+    }
 
-        public function destroy($id)
-        {
-            $request = Request::create('/api/horario/'.$id, 'DELETE');
-            $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
-            // dd($statusCode);
-            if ($statusCode == 204) { // No Content
-                return redirect()
-                    ->route('horario-profissional.index')
-                    ->with('success', 'Horario apagado com sucesso!');
-            } else {
-                return redirect()
-                    ->back()
-                    ->with('error', 'Falha ao apagar o horario');
-            }
-        }*/
+    public function update(Request $request, $id)
+    {
+        $request = Request::create('/api/profissional/' . $id, 'PUT', $request->all());
+        $profissional = json_decode(Route::dispatch($request)->getContent());
+        if ($profissional) {
+            return redirect()
+                ->route('profissional.index')
+                ->with('success', 'Profissional atualizado com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao atualizar o Profissional');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $request = Request::create('/api/profissional/' . $id, 'DELETE');
+        $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
+        // dd($statusCode);
+        if ($statusCode == 204) { // No Content
+            return redirect()
+                ->route('profissional.index')
+                ->with('success', 'Profissional apagado com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', 'Falha ao apagar o Profissional');
+        }
+    }
 }

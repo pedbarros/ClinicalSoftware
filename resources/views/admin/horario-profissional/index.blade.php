@@ -61,7 +61,7 @@
         </div>
     </form>
 
-    <h2>Lista de Planos</h2>
+    <h2>Lista de Horários dos profissionais</h2>
     <div class="box-body">
         @if($horarios)
             <table class="table table-bordered table-hover">

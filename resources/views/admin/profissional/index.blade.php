@@ -35,28 +35,44 @@
 
                 <div class="col-sm-4">
                     <label for="nome">Data de Nascimento</label>
-                    <input type="text" value="" name="data_nascimento" class="form-control"
+                    <input type="date" value="" name="data_nascimento" class="form-control"
                            required>
                 </div>
 
             </div>
 
 
-
             <div class=" row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="telefone">Telefone</label>
                     <input type="text" value="" name="telefone" class="form-control"
                            required>
                 </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="cpf">CPF</label>
                     <input type="text" value="" name="cpf" class="form-control"
                            required>
                 </div>
 
+                <div class="col-sm-3">
+                    <label for="cpf">Cód. Conselho</label>
+                    <input type="text" value="" name="cod_conselho" class="form-control"
+                           required>
+                </div>
+
+                <div class="col-sm-3">
+                    <label>Especialidade</label>
+                    <select class="form-control" name="especialidade_id">
+                        @foreach($especialidades as $especialidade)
+                            <option @if((int) old('id') === $especialidade->id) selected
+                                    @endif value="{{ $especialidade->id }}">{{ $especialidade->nome }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
+
+            <input type="hidden" name="data_entrada" value="{{ date('Y-m-d h:i:s') }}">
 
             <div class="form-group">
                 <button type="submit" class="btn btn-danger">Salvar</button>
@@ -87,7 +103,8 @@
                         <td>{{ $profissional->data_entrada }}</td>
                         <td>{{ $profissional->especialidades->nome }}</td>
                         <td style="display: inline-flex;">
-                            <a class="btn btn-primary" href="{{ route('profissional.edit', $profissional->id) }}">Editar</a>
+                            <a class="btn btn-primary"
+                               href="{{ route('profissional.edit', $profissional->id) }}">Editar</a>
                             <form action="{{ route('profissional.destroy', $profissional->id) }}" method="POST">
                                 {{ method_field('DELETE') }}{{csrf_field()}}
                                 <a onclick="return confirm('Deseja realmente deletar o profissional {{  $profissional->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
