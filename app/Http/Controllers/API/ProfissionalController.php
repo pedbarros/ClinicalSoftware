@@ -14,13 +14,13 @@ class ProfissionalController extends Controller
     public function index()
     {
         //return response()->json(Profissional::all(), 201);
-        return response()->json(Profissional::with('pessoas', 'especialidades')->get(), 201);
+        return response()->json(Profissional::with('pessoas', 'especialidades', 'planos')->get(), 201);
     }
 
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return response()->json(Profissional::find($id), 201);
+        return response()->json(Profissional::with('pessoas', 'especialidades', 'planos')->find($id), 201);
     }
 
     // INSERT
