@@ -26,7 +26,7 @@ class PlanoProfissionalController extends Controller
      */
     public function index()
     {
-        return response()->json($this->plano->get(), 201);
+        return response()->json($this->plano->with('profissionais')->get(), 201);
     }
 
     /**

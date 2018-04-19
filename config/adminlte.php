@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
 
     'logout_url' => 'logout',
 
@@ -108,25 +108,29 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',
+        'MENU',
         [
-            'text' => 'Blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'Inicio',
+            'url'         => '/',
+            'icon'        => 'file',
         ],
         [
-            'text'        => 'Pages',
-            'url'         => 'admin/pages',
+            'text'        => 'Agenda',
+            'url'         => '/agenda',
             'icon'        => 'file',
-            'label'       => 4,
             'label_color' => 'success',
+            'submenu' => [
+                [
+                    'text' => 'Inserir agendamento',
+                    'url'  => '/agenda',
+                ],
+                [
+                    'text' => 'Consultar agenda',
+                    'url'  => '/agenda',
+                ],
+            ],
         ],
         'MANUTENÇÃO',
-        /*[
-            'text' => 'Profile',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
-        ],*/
         [
             'text'    => 'Cadastro',
             'icon'    => 'share',
@@ -146,6 +150,10 @@ return [
                 [
                     'text' => 'Profissionais',
                     'url'  => '/profissional',
+                ],
+                [
+                    'text' => 'Pacientes',
+                    'url'  => '/paciente',
                 ],
                 [
                     'text' => 'Horários',

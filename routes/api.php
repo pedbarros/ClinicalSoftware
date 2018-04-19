@@ -27,6 +27,8 @@ Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function ()
     $this->resource('plano', 'PlanoController');
     $this->resource('horario', 'HorarioController');
     $this->resource('profissional', 'ProfissionalController');
+    $this->resource('paciente', 'PacienteController');
+    $this->resource('agenda', 'AgendaController');
 
 
 
