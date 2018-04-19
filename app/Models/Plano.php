@@ -12,4 +12,10 @@ class Plano extends Model
 
     public $timestamps = false;
 
+    public function profissionais()
+    {
+        return $this->belongsToMany('App\Models\Profissional', 'plano_profissionais', 'plano_id',
+            'profissional_id')->withPivot('status');
+    }
+
 }

@@ -15,6 +15,13 @@ Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function ()
     $this->post('especialidade/{especialidade_id}/profissao/{profissao_id}', 'EspecialidadeProfissoesController@store');  // especialidade/#/profissao/#
     $this->delete('especialidade/{especialidade_id}/profissao/{profissao_id}', 'EspecialidadeProfissoesController@destroy');  // especialidade/#/profissao/#
 
+    // PLANO/PROFISSIONAL
+    $this->get('plano/profissional/', 'PlanoProfissionalController@index');  // plano/#/profissional/#
+    $this->get('plano/{plano_id}/profissional/{profissional_id}', 'PlanoProfissionalController@show');  // plano/#/profissional/#
+    $this->post('plano/{plano_id}/profissional/{profissional_id}', 'PlanoProfissionalController@store');  // plano/#/profissional/#
+    $this->delete('plano/{plano_id}/profissional/{profissional_id}', 'PlanoProfissionalController@destroy');  // plano/#/profissional/#
+
+
     $this->resource('profissao', 'ProfissaoController');
     $this->resource('especialidade', 'EspecialidadeController');
     $this->resource('plano', 'PlanoController');

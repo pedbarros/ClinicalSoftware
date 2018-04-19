@@ -26,4 +26,10 @@ class Profissional extends Model
         return $this->belongsTo('App\Models\Especialidade', 'especialidade_id');
     }
 
+    public function planos()
+    {
+        return $this->belongsToMany('App\Models\Plano', 'plano_profissionais', 'profissional_id',
+            'plano_id')->withPivot('status');
+    }
+
 }

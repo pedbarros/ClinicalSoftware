@@ -158,9 +158,13 @@ return [
             'icon'    => 'share',
             'submenu' => [
                 [
-                    'text' => 'Especialidades a uma Profissão',
+                    'text' => 'Profissão a uma Especialidade',
                     'url'  => '/especialidade-profissao',
-                ]
+                ],
+                [
+                    'text' => 'Plano a um Profissional',
+                    'url'  => '/plano-profissional',
+                ],
             ],
         ],
     ],
