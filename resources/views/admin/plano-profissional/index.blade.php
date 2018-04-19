@@ -85,7 +85,7 @@
                         <td>{{ $profissional->data_entrada }}</td>
                         <td>{{ $profissional->especialidades->nome }}</td>
                         <td style="display: inline-flex;">
-                            <button type="button" id="btnMostrarPlano" class="btn btn-danger" data-toggle="modal" data-target="#modal-planos" data-profissional="{{ json_encode($profissional) }}">
+                            <button type="button" class="btn btn-danger btnMostrarPlano" onclick="mostrarDetalhesDoProfissional({{json_encode($profissional)}})">
                                 Mostrar planos
                             </button>
                         </td>
@@ -107,8 +107,9 @@
                     <h2 class="modal-title">Planos</h2>
                 </div>
                 <div class="modal-body">
-                    <p>Unimed Maceió</p>
-                    <p>Smile Saúde</p>
+                    <div id="conteudo">
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
@@ -119,11 +120,16 @@
 
     @push('scripts')
         <script>
-            $('#modal-planos').on('shown.bs.modal', function (e) {
-                var data = document.getElementById('btnMostrarPlano');
-                var json = JSON.parse(data.getAttribute('data-profissional'));
-                console.log(json);
-            })
+            function mostrarDetalhesDoProfissional(profissional ){
+               console.log(profissional.planos)
+                var conteudoModal = document.getElementById('conteudo');
+                conteudoModal.innerHTML = '';
+                profissional.planos.forEach(function(valor, _){
+                    conteudoModal.innerHTML += '<b>' + valor.nome_plano + '</b><br>'
+                });
+
+                $("#modal-planos").modal();
+            }
         </script>
     @endpush
 @stop

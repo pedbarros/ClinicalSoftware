@@ -31,7 +31,7 @@ class PlanoProfissionalController extends Controller
 
         $request = Request::create('/api/profissional', 'GET');
         $profissionais = json_decode(Route::dispatch($request)->getContent());
-
+        // dd($profissionais);
         $request = Request::create('api/plano/profissional', 'GET');
         $planos_profissionais = json_decode(Route::dispatch($request)->getContent());
 
