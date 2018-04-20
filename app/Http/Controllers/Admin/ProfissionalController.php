@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 class ProfissionalController extends Controller
 {
     private $profissional;
+    private $sexos = ["M" => "Masculino", "F" => "Feminino"];
 
     public function __construct(Profissional $profissional)
     {
@@ -30,7 +31,8 @@ class ProfissionalController extends Controller
         $request = Request::create('/api/especialidade', 'GET');
         $especialidades = json_decode(Route::dispatch($request)->getContent());
         /// dd($especialidades);
-        return view('admin.profissional.index', compact('profissionais', 'especialidades'));
+        $sexos = $this->sexos;
+        return view('admin.profissional.index', compact('profissionais', 'especialidades', 'sexos'));
     }
 
 
@@ -58,12 +60,13 @@ class ProfissionalController extends Controller
         $profissional = $this->profissional->find($id);
         $request = Request::create('/api/especialidade', 'GET');
         $especialidades = json_decode(Route::dispatch($request)->getContent());
-
-        return view('admin.profissional.edit', compact('profissional', 'profissionais', 'especialidades'));
+        $sexos = $this->sexos;
+        return view('admin.profissional.edit', compact('profissional', 'profissionais', 'especialidades', 'sexos'));
     }
 
     public function update(Request $request, $id)
     {
+        //dd($request->all());
         $request = Request::create('/api/profissional/' . $id, 'PUT', $request->all());
         $profissional = json_decode(Route::dispatch($request)->getContent());
         if ($profissional) {

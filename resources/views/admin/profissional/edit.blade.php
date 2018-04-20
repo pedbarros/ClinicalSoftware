@@ -20,7 +20,7 @@
         </div>
     @endif
 
-{{$profissional->pessoas}}
+{{$profissional->pessoas->data_nascimento}}
     <form action="{{ url('profissional', [$profissional->id])}}" method="POST">
         {!! csrf_field() !!}
         {{ method_field('PUT') }}
@@ -34,14 +34,16 @@
                 <div class="col-sm-4">
                     <label>Status</label>
                     <select class="form-control" name="sexo">
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
+                        @foreach( $sexos as $chave => $valor )
+                            <option @if((string) $profissional->pessoas->sexo == $chave) selected
+                                    @endif value="{{ $chave }}">{{ $valor }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 <div class="col-sm-4">
                     <label for="nome">Data de Nascimento</label>
-                    <input type="date" value="{{  $profissional->pessoas->data_nascimento }}" name="data_nascimento" class="form-control"
+                    <input type="date" value = "{{ Carbon\Carbon::parse($profissional->pessoas->data_nascimento)->format('Y-m-d') }}" name="data_nascimento" class="form-control"
                            required>
                 </div>
 
@@ -71,7 +73,7 @@
                     <label>Especialidade</label>
                     <select class="form-control" name="especialidade_id">
                         @foreach($especialidades as $especialidade)
-                            <option @if((int) $profissional->id === $especialidade->id) selected
+                            <option @if((int) $profissional->especialidade_id === $especialidade->id) selected
                                     @endif value="{{ $especialidade->id }}">{{ $especialidade->nome }}</option>
                         @endforeach
                     </select>

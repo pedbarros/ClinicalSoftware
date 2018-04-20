@@ -12,6 +12,7 @@ class EspecialidadeProfissoesController extends Controller
 {
     private $especialidade;
     private $profissao;
+    private $status = ["A" => "Ativo", "I" => "Inativo"];
 
     public function __construct(Especialidade $especialidade, Profissao $profissao)
     {
@@ -35,7 +36,9 @@ class EspecialidadeProfissoesController extends Controller
         $request = Request::create('api/especialidade/profissao', 'GET');
         $especialidades_profissoes = json_decode(Route::dispatch($request)->getContent());
 
-        return view('admin.especialidade-profissao.index', compact('especialidades', 'profissoes', 'especialidades_profissoes'));
+        $status = $this->status;
+
+        return view('admin.especialidade-profissao.index', compact('especialidades', 'profissoes', 'especialidades_profissoes', 'status'));
     }
 
     /**
@@ -92,8 +95,17 @@ class EspecialidadeProfissoesController extends Controller
      */
     public function edit($id)
     {
-        $especialidade = $this->especialidade->find($id);
-        return view('admin.especialidade-profissao.edit', compact('especialidade'));
+        $request = Request::create('/api/especialidade', 'GET');
+        $especialidade = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/especialidade', 'GET');
+        $especialidades = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/profissao', 'GET');
+        $profissoes = json_decode(Route::dispatch($request)->getContent());
+
+        $status = $this->status;
+        return view('admin.especialidade-profissao.edit', compact('especialidade', 'especialidades', 'profissoes', 'status'));
     }
 
     /**

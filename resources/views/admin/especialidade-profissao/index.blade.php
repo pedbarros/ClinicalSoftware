@@ -49,8 +49,9 @@
                 <div class="col-sm-3">
                     <label>Status</label>
                     <select class="form-control" name="status">
-                        <option value="A">Ativo</option>
-                        <option value="I">Inativo</option>
+                        @foreach( $status as $chave => $valor )
+                            <option value="{{$chave}}">{{$valor}}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -77,16 +78,18 @@
                 </thead>
                 <tbody>
                 @foreach($especialidades_profissoes as $profissao)
-                    <tr>
-                        @foreach($profissao->especialidades as $especialidade)
+                    @foreach($profissao->especialidades as $especialidade)
+                        <tr>
                             <td>{{ $profissao->id }}</td>
                             <td>{{ $profissao->descricao }}</td>
                             <td>{{ $especialidade->id }}</td>
                             <td>{{ $especialidade->nome }}</td>
                             <td>{{ $especialidade->pivot->status }}</td>
                             <td style="display: inline-flex;">
-                                <a class="btn btn-primary" href="{{ route('especialidade-profissao.edit', $especialidade->id) }}">Editar</a>
-                                <form action="{{ route('especialidade-profissao.destroy', $profissao->id ) }}" method="POST">
+                                <a class="btn btn-primary"
+                                   href="{{ route('especialidade-profissao.edit', $especialidade->id) }}">Editar</a>
+                                <form action="{{ route('especialidade-profissao.destroy', $profissao->id ) }}"
+                                      method="POST">
                                     {{ method_field('DELETE') }}{{csrf_field()}}
                                     <input hidden name="profissao_id" value="{{  $profissao->id  }}">
                                     <input hidden name="especialidade_id" value="{{  $especialidade->id  }}">
@@ -95,8 +98,8 @@
                                     </a>
                                 </form>
                             </td>
-                        @endforeach
-                    <tr>
+                        <tr>
+                    @endforeach
                 @endforeach
                 </tbody>
             </table>

@@ -15,10 +15,10 @@ class Pessoa extends Model
 
     public $timestamps = false;
 
-    public function getDataNascimentoAttribute($date)
+    /*public function getDataNascimentoAttribute($date)
     {
-        return 1; //$date->toFormattedDateString();
-    }
+        return $date->toFormattedDateString();
+    }*/
 
 
     public function profissional()

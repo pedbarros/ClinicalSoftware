@@ -29,7 +29,7 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="descricao">Nome</label>
-                    <input type="text" value="Enfermeira" name="descricao" placeholder="Descrição" class="form-control" required>
+                    <input type="text" value="{{  old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control" required>
                 </div>
             </div>
         </div>

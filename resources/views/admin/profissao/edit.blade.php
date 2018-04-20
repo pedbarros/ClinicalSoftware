@@ -30,13 +30,6 @@
                     <label for="name">Nome</label>
                     <input type="text" value="{{  $profissao->descricao }}" name="descricao" placeholder="Descrição" class="form-control">
                 </div>
-                <div class="col-sm-3">
-                    <label>Status</label>
-                    <select class="form-control" name="status">
-                        <option value="A">Ativo</option>
-                        <option value="I">Inativo</option>
-                    </select>
-                </div>
             </div>
         </div>
 

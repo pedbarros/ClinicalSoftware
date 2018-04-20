@@ -28,8 +28,9 @@
                 <div class="col-sm-4">
                     <label>Status</label>
                     <select class="form-control" name="sexo">
-                        <option value="M">Masculino</option>
-                        <option value="F">Feminino</option>
+                        @foreach( $sexos as $chave => $valor )
+                            <option value="{{$chave}}">{{$valor}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -75,7 +76,7 @@
             <input type="hidden" name="data_entrada" value="{{ date('Y-m-d h:i:s') }}">
 
             <div class="form-group">
-                <button type="submit" class="btn btn-danger">Salvar</button>
+                <button type="submit" class="btn btn-danger">Salvar Profissional</button>
             </div>
         </div>
     </form>

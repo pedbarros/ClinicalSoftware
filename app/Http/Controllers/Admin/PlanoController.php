@@ -26,12 +26,6 @@ class PlanoController extends Controller
         $request = Request::create('/api/plano', 'GET');
         $planos = json_decode(Route::dispatch($request)->getContent());
 
-        /*if (!empty($planos)) {
-            dd("Tem valores");
-        }else{
-            dd("Não tem valores");
-        }*/
-
         return view('admin.plano.index', compact('planos'));
     }
 

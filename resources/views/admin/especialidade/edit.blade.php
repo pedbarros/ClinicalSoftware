@@ -38,7 +38,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Atualizar Profissão</button>
+            <button type="submit" class="btn btn-danger">Atualizar Especialidade</button>
         </div>
     </form>
 
