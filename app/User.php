@@ -41,4 +41,10 @@ class User extends Authenticatable
             parent::setAttribute($key, $value);
         }
     }
+
+
+    public function pessoa()
+    {
+        return $this->belongsTo('App\Models\Pessoa', 'pessoa_id');
+    }
 }

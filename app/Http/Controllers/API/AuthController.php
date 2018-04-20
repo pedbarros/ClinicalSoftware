@@ -28,12 +28,13 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'usuario' => 'required|string|max:255',
             'password' => 'required'
         ]);
 
-        // dd($validator->errors());
+       // dd($validator->errors());
 
         if ($validator->fails()) {
             return response()->json(['access' => false, 'error' => 'Os campos não foram validados'], 401);

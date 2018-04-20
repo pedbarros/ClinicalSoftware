@@ -7,7 +7,7 @@ Route::post('auth/refresh', 'API\AuthController@refresh');
 Route::get('auth/logout', 'API\AuthController@logout');
 
 
-Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function () {
+Route::group(['middleware' => 'jwt.auth', 'namespace' => 'API'], function () {
 
     // ESPECIALIDADE/PROFISSÃO
     $this->get('especialidade/profissao/', 'EspecialidadeProfissoesController@index');  // especialidade/#/profissao/#

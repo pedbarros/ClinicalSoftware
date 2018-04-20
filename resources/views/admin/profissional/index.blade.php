@@ -100,7 +100,7 @@
                         <td>{{ $profissional->id }}</td>
                         <td>{{ $profissional->cod_conselho }}</td>
                         <td>{{ $profissional->pessoas->nome }}</td>
-                        <td>{{ $profissional->data_entrada }}</td>
+                        <td>{{ Carbon\Carbon::parse($profissional->data_entrada)->format('d/m/Y h:i:s' ) }}</td>
                         <td>{{ $profissional->especialidades->nome }}</td>
                         <td style="display: inline-flex;">
                             <a class="btn btn-primary"

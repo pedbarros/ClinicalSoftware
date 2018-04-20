@@ -7,5 +7,10 @@
 @stop
 
 @section('content')
-    <p> {{ Auth::user() }}</p>
+    @if(Auth::user()->pessoa()->first()->profissional()->first())
+        <p> É profissional da clinica! </p>
+    @else
+        <p> Não é profissional da clinica! </p>
+    @endif
+
 @stop

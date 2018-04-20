@@ -1,5 +1,4 @@
 <?php
-
 return [
 
     /*
@@ -108,73 +107,8 @@ return [
     */
 
     'menu' => [
-        'MENU',
-        [
-            'text'        => 'Inicio',
-            'url'         => '/',
-            'icon'        => 'file',
-        ],
-        [
-            'text'        => 'Agenda',
-            'url'         => '/agenda',
-            'icon'        => 'file',
-            'label_color' => 'success',
-            'submenu' => [
-                [
-                    'text' => 'Inserir agendamento',
-                    'url'  => '/agenda',
-                ],
-                [
-                    'text' => 'Consultar agenda',
-                    'url'  => '/agenda',
-                ],
-            ],
-        ],
-        'MANUTENÇÃO',
-        [
-            'text'    => 'Cadastro',
-            'icon'    => 'share',
-            'submenu' => [
-                [
-                    'text' => 'Profissões',
-                    'url'  => '/profissao',
-                ],
-                [
-                    'text' => 'Especialidades',
-                    'url'  => '/especialidade',
-                ],
-                [
-                    'text' => 'Planos de Saúde',
-                    'url'  => '/plano',
-                ],
-                [
-                    'text' => 'Profissionais',
-                    'url'  => '/profissional',
-                ],
-                [
-                    'text' => 'Pacientes',
-                    'url'  => '/paciente',
-                ],
-                [
-                    'text' => 'Horários',
-                    'url'  => '/horario-profissional',
-                ],
-            ],
-        ],
-        [
-            'text'    => 'Adicionar',
-            'icon'    => 'share',
-            'submenu' => [
-                [
-                    'text' => 'Profissão a uma Especialidade',
-                    'url'  => '/especialidade-profissao',
-                ],
-                [
-                    'text' => 'Plano a um Profissional',
-                    'url'  => '/plano-profissional',
-                ],
-            ],
-        ],
+
+
     ],
 
     /*

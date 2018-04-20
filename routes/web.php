@@ -31,9 +31,9 @@ $this->post('/login', function (\Illuminate\Http\Request $request) {
     }
 })->name('login');
 
-
-
-
+$this->get('/pessoateste', function () {
+   // dd(\App\Models\Pessoa::find(1)->profissional()->first()->especialidades()->first());
+});
 
 
 

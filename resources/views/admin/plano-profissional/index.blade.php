@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Profissional</label>
-                    <select class="form-control" name="profissional_id">
+                    <select class="form-control" name="profissional_id" id="profissional_id">
                         @foreach($profissionais as $profissional)
                             <option @if((int) old('id') === $profissional->id) selected
                                     @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome}}</option>
@@ -121,7 +121,7 @@
     @push('scripts')
         <script>
             function mostrarDetalhesDoProfissional(profissional ){
-               console.log(profissional.planos)
+                // console.log(profissional.planos)
                 var conteudoModal = document.getElementById('conteudo');
                 conteudoModal.innerHTML = '';
                 profissional.planos.forEach(function(valor, _){
@@ -130,6 +130,16 @@
 
                 $("#modal-planos").modal();
             }
+
+            $("#modal-planos").on("hidden.bs.modal", function () {
+
+                /*$.get('/api/profissional/', function (busca) {
+                    console.log(busca)
+                });*/
+
+                $("#profissional_id").empty();
+
+            });
         </script>
     @endpush
 @stop

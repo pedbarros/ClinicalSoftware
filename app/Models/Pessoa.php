@@ -20,9 +20,18 @@ class Pessoa extends Model
         return $date->toFormattedDateString();
     }*/
 
+    public function user()
+    {
+        return $this->hasMany('App\User', 'pessoa_id');
+    }
 
     public function profissional()
     {
-        return $this->hasMany('App\Models\Profissional', 'profissional_id');
+        return $this->hasMany('App\Models\Profissional');
+    }
+
+    public function paciente()
+    {
+        return $this->hasMany('App\Models\Paciente');
     }
 }
