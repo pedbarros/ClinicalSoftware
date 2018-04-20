@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Atualizar Especialidade - Clínica Software')
+@section('title', 'Atualizar uma especialidade a uma profissão')
 
 @section('content_header')
-    <h1>Atualizar de Especialidades</h1>
+    <h1>Atualizar uma especialidade a uma profissão</h1>
 @stop
 
 @section('content')

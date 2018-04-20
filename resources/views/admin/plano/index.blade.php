@@ -29,7 +29,7 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="nome_plano">Nome do Plano</label>
-                    <input type="text" value="" name="nome_plano" placeholder="Plano de Saúde" class="form-control" required>
+                    <input type="text" value="" name="nome_plano" class="form-control" maxlength="50" required>
                 </div>
                 <div class="col-sm-3">
                     <label>Status</label>

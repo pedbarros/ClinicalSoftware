@@ -44,45 +44,15 @@ class PlanoProfissionalController extends Controller
 
             return response()->json(['store' => true, 'msg' => 'Inserido com sucesso'], 201);
         } catch (\Exception $e) {
-            // dd($e);
-            return response()->json(['store' => false, 'msg' => 'Não foi possível inserir'], 500);
+            // dd($e->errorInfo[1]);
+            $codigo_erro = $e->errorInfo[1];
+
+            if ($codigo_erro == 1062)
+                $msg = "Já existe um profissional cadastrado a esse plano!";
+            else
+                $msg = "Erro ao cadastrar o profissional ao plano!";
+            return response()->json(['store' => false, 'msg' => $msg], 500);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $especialidade_id
-     * @param  int $profissao_id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($plano_id, $profissional_id)
-    {
-        // dd($plano_id, $profissional_id);
-        $plano = $this->plano->find($plano_id);
-        echo "<b>{$plano->nome}:</b><br>";
-
-        $plano->profissionais()->attach($profissional_id);
-        //$company->cities()->sync($dataForm);
-        // $company->cities()->detach([4]);
-
-        $profissionais = $plano->profissionais;
-        foreach ($profissionais as $profissional) {
-            echo " {$profissional->descricao}, ";
-        }
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

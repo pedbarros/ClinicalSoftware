@@ -31,14 +31,12 @@ class PlanoController extends Controller
 
         return response()->json($plano, 201);
     }
-    /*
+
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return new ProductResource(Product::find($id));
+        return response()->json(Plano::find($id), 201);
     }
-
-    */
 
     // UPDATE
     public function update(Request $request, Plano $plano)

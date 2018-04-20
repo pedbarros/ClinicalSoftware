@@ -20,15 +20,19 @@
         {!! csrf_field() !!}
         <div class="form-group">
             <div class=" row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="descricao">Dia da Semana</label>
-                    <input type="text" value="" name="dia_semana" class="form-control"
-                           required>
+                    <select class="form-control" name="dia_semana">
+                        @foreach( $dia_semana as $chave => $valor )
+                            <option value="{{$chave}}">{{$valor}}</option>
+                        @endforeach
+                    </select>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="descricao">Horário Inicio</label>
                     <div class="input-group">
-                        <input type="text" name="horario_inicio" class="form-control timepicker">
+                        <input type="text" value="" name="horario_inicio" id="horario_inicio"
+                               class="form-control" minlength="8" required>
 
                         <div class="input-group-addon">
                             <i class="fa fa-clock-o"></i>
@@ -36,22 +40,32 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="descricao">Horário Final</label>
-                    <input type="text" value="" name="horario_final" class="form-control"
-                           required>
+                    <div class="input-group">
+                        <input type="text" value="" name="horario_final" id="horario_final"
+                               class="form-control" minlength="8" required>
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="descricao">Quantidade de consultas</label>
+                    <input type="text" value="" name="quantidade_consultas" class="form-control" maxlength="2" required>
                 </div>
 
             </div>
             <div class=" row">
-                <div class="col-sm-6">
-                    <label for="descricao">Quantidade de consultas</label>
-                    <input type="text" value="" name="quantidade_consultas" class="form-control" required>
-                </div>
-                <div class="col-sm-6">
-                    <label for="descricao">Profissional</label>
-                    <input type="text" value="" name="profissional_id" placeholder="Descrição"
-                           class="form-control" required>
+                <div class="col-sm-4">
+                    <label>Profissional</label>
+                    <select class="form-control" name="profissional_id">
+                        @foreach($profissionais as $profissional)
+                            <option @if((int) old('id') === $profissional->id) selected
+                                    @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -102,4 +116,11 @@
             <p>Não há horários cadastrados</p>
         @endif
     </div>
+    @push('scripts')
+        <script>
+            $(document).ready(function () {
+                $('#horario_inicio, #horario_final').mask('99:99:99');
+            });
+        </script>
+    @endpush
 @stop

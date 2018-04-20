@@ -28,9 +28,8 @@
             <div class=" row">
                 <div class="col-sm-4">
                     <label for="nome">Data de agendamento</label>
-                    <input type="date" value="{{ $agenda->data_agendamento  }}" name="data_agendamento"
-                           class="form-control"
-                           required>
+                    <input type="date" value="{{ Carbon\Carbon::parse($agenda->data_agendamento)->format('Y-m-d') }}" name="data_agendamento"
+                           class="form-control" required>
                 </div>
                 <div class="col-sm-4">
                     <label for="descricao">Horário Inicio</label>
@@ -87,7 +86,7 @@
             <div class=" row">
                 <div class="col-sm-12">
                     <label>Observação</label>
-                    <textarea class="form-control" name="obs" rows="3" value="{{ $agenda->obs  }}"></textarea>
+                    <textarea class="form-control" name="obs" rows="3">{{ $agenda->obs  }}</textarea>
                 </div>
             </div>
         </div>

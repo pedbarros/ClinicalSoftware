@@ -76,7 +76,7 @@
             <div class=" row">
                 <div class="col-sm-12">
                     <label>Observação</label>
-                    <textarea class="form-control" name="obs" rows="3"></textarea>
+                    <textarea class="form-control" name="obs" rows="3">{{ old('obs') }}</textarea>
                 </div>
             </div>
         </div>

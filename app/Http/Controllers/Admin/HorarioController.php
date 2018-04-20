@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 class HorarioController extends Controller
 {
     private $horario;
+    private $dia_semana = ["1" => "Segunda-feira", "2" => "Terça-feira", "3" => "Quarta-feira",
+                       "4" => "Quinta-feira", "5" => "Sexta-feira", "6" => "Sábado"];
 
     public function __construct(Horario $horario)
     {
@@ -25,17 +27,23 @@ class HorarioController extends Controller
     {
         $request = Request::create('/api/horario', 'GET');
         $horarios = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/profissional', 'GET');
+        $profissionais = json_decode(Route::dispatch($request)->getContent());
+        // dd($profissionais);
+
+        $dia_semana = $this->dia_semana;
         // dd($horarios);
-        return view('admin.horario-profissional.index', compact('horarios'));
+        return view('admin.horario-profissional.index', compact('horarios', 'profissionais', 'dia_semana'));
     }
 
 
     public function store(Request $request)
     {
-        //dd($request->all());
+        // dd($request->all());
         $request = Request::create('/api/horario', 'POST', $request->all());
         $horario = json_decode(Route::dispatch($request)->getContent());
-
+// dd($horario);
         if ($horario) {
             return redirect()
                 ->route('horario-profissional.index')
@@ -50,9 +58,16 @@ class HorarioController extends Controller
 
         public function edit($id)
         {
-            $horarios = $this->horario->all();
-            $horario = $this->horario->find($id);
-            return view('admin.horario-profissional.edit', compact('horario', 'horarios'));
+            $request = Request::create('/api/horario/' . $id, 'GET');
+            $horario = json_decode(Route::dispatch($request)->getContent());
+//dd($horario);
+            $request = Request::create('/api/profissional', 'GET');
+            $profissionais = json_decode(Route::dispatch($request)->getContent());
+            // dd($profissionais);
+
+
+            $dia_semana = $this->dia_semana;
+            return view('admin.horario-profissional.edit', compact('horario',  'profissionais', 'dia_semana'));
         }
 
         public function update(Request $request, $id)

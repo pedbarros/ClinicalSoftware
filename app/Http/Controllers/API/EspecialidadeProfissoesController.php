@@ -39,6 +39,7 @@ class EspecialidadeProfissoesController extends Controller
      */
     public function store($especialidade_id, $profissao_id, Request $request)
     {
+
         try {
             $especialidade = $this->especialidade->find($especialidade_id);
 
@@ -46,45 +47,15 @@ class EspecialidadeProfissoesController extends Controller
 
             return response()->json(['store' => true, 'msg' => 'Inserido com sucesso'], 201);
         } catch (\Exception $e) {
-            // dd($e);
-            return response()->json(['store' => false, 'msg' => 'Não foi possível inserir'], 500);
+            // dd($e->errorInfo[1]);
+            $codigo_erro = $e->errorInfo[1];
+
+            if ($codigo_erro == 1062)
+                $msg = "Já existe uma profissão cadastrada a essa especialidade!";
+            else
+                $msg = "Erro ao cadastrar a profissão a especialidade!";
+            return response()->json(['store' => false, 'msg' => $msg], 500);
         }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $especialidade_id
-     * @param  int $profissao_id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($especialidade_id, $profissao_id)
-    {
-        // dd($especialidade_id . ' - ' . $profissao_id);
-        $especialidade = $this->especialidade->find($especialidade_id);
-        echo "<b>{$especialidade->nome}:</b><br>";
-
-        $especialidade->profissoes()->attach($profissao_id);
-        //$company->cities()->sync($dataForm);
-        // $company->cities()->detach([4]);
-
-        $profissoes = $especialidade->profissoes;
-        foreach ($profissoes as $profissao) {
-            echo " {$profissao->descricao}, ";
-        }
-
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**

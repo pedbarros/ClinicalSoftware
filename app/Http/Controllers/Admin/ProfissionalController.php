@@ -31,6 +31,7 @@ class ProfissionalController extends Controller
         $request = Request::create('/api/especialidade', 'GET');
         $especialidades = json_decode(Route::dispatch($request)->getContent());
         /// dd($especialidades);
+
         $sexos = $this->sexos;
         return view('admin.profissional.index', compact('profissionais', 'especialidades', 'sexos'));
     }
@@ -56,8 +57,12 @@ class ProfissionalController extends Controller
 
     public function edit($id)
     {
-        $profissionais = $this->profissional->all();
-        $profissional = $this->profissional->find($id);
+        $request = Request::create('/api/profissional', 'GET');
+        $profissionais = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/profissional/' . $id, 'PUT', $request->all());
+        $profissional = json_decode(Route::dispatch($request)->getContent());
+
         $request = Request::create('/api/especialidade', 'GET');
         $especialidades = json_decode(Route::dispatch($request)->getContent());
         $sexos = $this->sexos;
@@ -69,6 +74,7 @@ class ProfissionalController extends Controller
         //dd($request->all());
         $request = Request::create('/api/profissional/' . $id, 'PUT', $request->all());
         $profissional = json_decode(Route::dispatch($request)->getContent());
+
         if ($profissional) {
             return redirect()
                 ->route('profissional.index')

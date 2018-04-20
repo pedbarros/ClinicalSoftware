@@ -12,7 +12,7 @@ class HorarioController extends Controller
     // SELECT * FROM ALL
     public function index()
     {
-        return response()->json(Horario::all(), 201);
+        return response()->json(Horario::with('profissionais')->get(), 201);
     }
 
     // INSERT
@@ -38,7 +38,7 @@ class HorarioController extends Controller
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return response()->json(Horario::find($id), 201);
+        return response()->json(Horario::with('profissionais')->find($id), 201);
     }
 
 
@@ -47,7 +47,7 @@ class HorarioController extends Controller
     public function update(Request $request, Horario $horario)
     {
         $validator = Validator::make($request->all(), [
-            'dia_semana' => 'required|integer|max:255'
+            'dia_semana' => 'required|string|max:255'
         ]);
 //dd($validator->errors());
         if ($validator->fails()) {

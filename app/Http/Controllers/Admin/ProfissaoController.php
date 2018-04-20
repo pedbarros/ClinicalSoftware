@@ -25,17 +25,8 @@ class ProfissaoController extends Controller
     {
         $request = Request::create('/api/profissao', 'GET');
         $profissoes = json_decode(Route::dispatch($request)->getContent());
-        return view('admin.profissao.index', compact('profissoes'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.profissao.index', compact('profissoes'));
     }
 
     /**
@@ -62,17 +53,6 @@ class ProfissaoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return "Entrou no show";
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -80,8 +60,12 @@ class ProfissaoController extends Controller
      */
     public function edit($id)
     {
-        $profissoes = $this->profissao->all();
-        $profissao = $this->profissao->find($id);
+        $request = Request::create('/api/profissao', 'GET');
+        $profissoes = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/profissao/'.$id, 'GET', $request->all());
+        $profissao = json_decode(Route::dispatch($request)->getContent());
+
         return view('admin.profissao.edit', compact('profissao', 'profissoes'));
     }
 

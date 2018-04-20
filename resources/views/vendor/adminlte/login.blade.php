@@ -22,7 +22,7 @@
                 <div class="form-group has-feedback {{ $errors->has('usuario') ? 'has-error' : '' }}">
                     <input type="text" name="usuario" class="form-control" value="pedro.barros"
                            placeholder="{{ trans('adminlte::adminlte.email') }}">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                    <span class="glyphicon glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('usuario'))
                         <span class="help-block">
                             <strong>{{ $errors->first('usuario') }}</strong>
@@ -40,21 +40,15 @@
                     @endif
                 </div>
                 <div class="row">
-                    <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input type="checkbox" name="remember"> {{ trans('adminlte::adminlte.remember_me') }}
-                            </label>
-                        </div>
-                    </div>
                     <!-- /.col -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-12">
                         <button type="submit"
-                                class="btn btn-primary btn-block btn-flat">{{ trans('adminlte::adminlte.sign_in') }}</button>
+                                class="btn btn-danger btn-block">{{ trans('adminlte::adminlte.sign_in') }}</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
+            {{--
             <div class="auth-links">
                 <a href="{{ url(config('adminlte.password_reset_url', 'password/reset')) }}"
                    class="text-center"
@@ -66,6 +60,7 @@
                     >{{ trans('adminlte::adminlte.register_a_new_membership') }}</a>
                 @endif
             </div>
+            --}}
         </div>
         <!-- /.login-box-body -->
     </div><!-- /.login-box -->

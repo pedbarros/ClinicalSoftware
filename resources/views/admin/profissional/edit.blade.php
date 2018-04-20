@@ -20,16 +20,14 @@
         </div>
     @endif
 
-{{$profissional->pessoas->data_nascimento}}
     <form action="{{ url('profissional', [$profissional->id])}}" method="POST">
-        {!! csrf_field() !!}
+        @csrf
         {{ method_field('PUT') }}
         <div class="form-group">
             <div class=" row">
                 <div class="col-sm-4">
                     <label for="nome">Nome</label>
-                    <input type="text" value="{{  $profissional->pessoas->nome }}" name="nome" class="form-control"
-                           required>
+                    <input type="text" value="{{  $profissional->pessoas->nome }}" name="nome" class="form-control" maxlength="50" required>
                 </div>
                 <div class="col-sm-4">
                     <label>Status</label>
@@ -53,20 +51,20 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="telefone">Telefone</label>
-                    <input type="text" value="{{  $profissional->pessoas->telefone }}" name="telefone" class="form-control"
-                           required>
+                    <input type="text" value="{{  $profissional->pessoas->telefone }}" id="telefone" name="telefone"
+                               class="form-control" minlength="15" required>
                 </div>
 
                 <div class="col-sm-3">
                     <label for="cpf">CPF</label>
-                    <input type="text" value="{{  $profissional->pessoas->cpf }}" name="cpf" class="form-control"
-                           required>
+                    <input type="text" value="{{  $profissional->pessoas->cpf }}" id="cpf" name="cpf"
+                           class="form-control" minlength="14"  required>
                 </div>
 
                 <div class="col-sm-3">
                     <label for="cpf">Cód. Conselho</label>
-                    <input type="text" value="{{  $profissional->cod_conselho }}" name="cod_conselho" class="form-control"
-                           required>
+                    <input type="text" value="{{  $profissional->cod_conselho }}" name="cod_conselho"
+                           class="form-control" maxlength="5" required>
                 </div>
 
                 <div class="col-sm-3">
@@ -88,5 +86,12 @@
         </div>
     </form>
 
-
+    @push('scripts')
+        <script>
+            $(document).ready(function(){
+                $('#telefone').mask('(99) 99999-9999');
+                $('#cpf').mask('999.999.999-99');
+            });
+        </script>
+    @endpush
 @stop

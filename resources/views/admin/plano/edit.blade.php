@@ -28,7 +28,7 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="nome_plano">Nome do Plano</label>
-                    <input type="text" value="{{  $plano->nome_plano }}" name="nome_plano" placeholder="Nome do Plano" class="form-control">
+                    <input type="text" value="{{  $plano->nome_plano }}" name="nome_plano" class="form-control" maxlength="50" required>
                 </div>
                 <div class="col-sm-3">
                     <label>Status</label>

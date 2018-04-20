@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 class AgendaController extends Controller
 {
-    private $Agenda;
+    private $agenda;
 
     public function __construct(Agenda $agenda)
     {
@@ -60,7 +60,8 @@ class AgendaController extends Controller
     public function edit($id)
     {
         // dd($id);
-        $agenda = $this->agenda->find($id);
+        $request = Request::create('/api/agenda/' . $id, 'GET');
+        $agenda = json_decode(Route::dispatch($request)->getContent());
 
         $request = Request::create('/api/paciente', 'GET');
         $pacientes = json_decode(Route::dispatch($request)->getContent());
@@ -99,7 +100,7 @@ class AgendaController extends Controller
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao apagar o Agenda');
+                ->with('error', 'Falha ao apagar o agenda');
         }
     }
 }

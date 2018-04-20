@@ -40,17 +40,6 @@ class PlanoProfissionalController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -61,7 +50,7 @@ class PlanoProfissionalController extends Controller
 
         $req = Request::create('/api/plano/' . $request["plano_id"] . '/profissional/' . $request["profissional_id"] , 'POST', $request->all());
         $plano_profissional =  Route::dispatch($req)->getData() ;
-
+// dd($plano_profissional);
         if ($plano_profissional->store == true) {
             return redirect()
                 ->route('plano-profissional.index')
@@ -69,20 +58,9 @@ class PlanoProfissionalController extends Controller
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao inserir o plano ao profissional!');
+                ->with('error', $plano_profissional->msg);
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return "Entrou no show";
     }
 
     /**
@@ -93,7 +71,9 @@ class PlanoProfissionalController extends Controller
      */
     public function edit($id)
     {
-        $plano = $this->plano->find($id);
+        $request = Request::create('/api/plano/'.$id, 'GET');
+        $plano = json_decode(Route::dispatch($request)->getContent());
+
         return view('admin.plano-profissional.edit', compact('plano'));
     }
 

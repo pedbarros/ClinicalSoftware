@@ -17,13 +17,12 @@
     @endif
 
     <form action="" method="POST" enctype="multipart/form-data">
-        {!! csrf_field() !!}
+        @csrf
         <div class="form-group">
             <div class=" row">
                 <div class="col-sm-4">
                     <label for="nome">Nome</label>
-                    <input type="text" value="" name="nome" class="form-control"
-                           required>
+                    <input type="text" value="" name="nome" class="form-control" maxlength="50" required>
                 </div>
                 <div class="col-sm-4">
                     <label>Status</label>
@@ -46,19 +45,19 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="telefone">Telefone</label>
-                    <input type="text" value="" name="telefone" class="form-control"
+                    <input type="text" value="" id="telefone" name="telefone" class="form-control" minlength="15"
                            required>
                 </div>
 
                 <div class="col-sm-3">
                     <label for="cpf">CPF</label>
-                    <input type="text" value="" name="cpf" class="form-control"
+                    <input type="text" value="" id="cpf" name="cpf" class="form-control" minlength="14"
                            required>
                 </div>
 
                 <div class="col-sm-3">
                     <label for="cpf">Cód. Conselho</label>
-                    <input type="text" value="" name="cod_conselho" class="form-control"
+                    <input type="text" value="" name="cod_conselho" class="form-control" maxlength="5"
                            required>
                 </div>
 
@@ -107,7 +106,7 @@
                             <a class="btn btn-primary"
                                href="{{ route('profissional.edit', $profissional->id) }}">Editar</a>
                             <form action="{{ route('profissional.destroy', $profissional->id) }}" method="POST">
-                                {{ method_field('DELETE') }}{{csrf_field()}}
+                                @csrf {{ method_field('DELETE') }}
                                 <a onclick="return confirm('Deseja realmente deletar o profissional {{  $profissional->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
                                    class="btn btn-info">Apagar
                                 </a>
@@ -121,4 +120,12 @@
             <p>Não há profissionais cadastrados</p>
         @endif
     </div>
+    @push('scripts')
+        <script>
+            $(document).ready(function(){
+                $('#telefone').mask('(99) 99999-9999');
+                $('#cpf').mask('999.999.999-99');
+            });
+        </script>
+    @endpush
 @stop

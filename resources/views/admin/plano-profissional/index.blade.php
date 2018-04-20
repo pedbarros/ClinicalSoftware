@@ -57,7 +57,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Salvar</button>
+            <button type="submit" class="btn btn-danger">Adicionar</button>
         </div>
     </form>
 
@@ -125,7 +125,7 @@
                 var conteudoModal = document.getElementById('conteudo');
                 conteudoModal.innerHTML = '';
                 profissional.planos.forEach(function(valor, _){
-                    conteudoModal.innerHTML += '<b>' + valor.nome_plano + '</b><br>'
+                    conteudoModal.innerHTML += '- <b>' + valor.nome_plano + '</b><br>'
                 });
 
                 $("#modal-planos").modal();

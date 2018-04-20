@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Salvar</button>
+            <button type="submit" class="btn btn-danger">Adicionar</button>
         </div>
     </form>
 
@@ -86,8 +86,6 @@
                             <td>{{ $especialidade->nome }}</td>
                             <td>{{ $especialidade->pivot->status }}</td>
                             <td style="display: inline-flex;">
-                                <a class="btn btn-primary"
-                                   href="{{ route('especialidade-profissao.edit', $especialidade->id) }}">Editar</a>
                                 <form action="{{ route('especialidade-profissao.destroy', $profissao->id ) }}"
                                       method="POST">
                                     {{ method_field('DELETE') }}{{csrf_field()}}

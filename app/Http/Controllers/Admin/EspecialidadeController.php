@@ -30,16 +30,6 @@ class EspecialidadeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -63,17 +53,6 @@ class EspecialidadeController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return "Entrou no show";
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -81,7 +60,9 @@ class EspecialidadeController extends Controller
      */
     public function edit($id)
     {
-        $especialidade = $this->especialidade->find($id);
+        $request = Request::create('/api/especialidade/'.$id, 'GET');
+        $especialidade = json_decode(Route::dispatch($request)->getContent());
+
         return view('admin.especialidade.edit', compact('especialidade'));
     }
 

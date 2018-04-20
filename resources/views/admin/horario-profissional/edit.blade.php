@@ -21,28 +21,27 @@
     @endif
 
 
+
     <form method="POST" action="{{url('horario-profissional', [$horario->id])}}">
         {!! csrf_field() !!}
         {{ method_field('PUT') }}
 
         <div class="form-group">
             <div class=" row">
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <label for="dia_semana">Dia da Semana</label>
                     <select class="form-control" name="dia_semana">
-                        <option value="1">Segunda</option>
-                        <option value="2">Terça</option>
-                        <option value="3">Quarta</option>
-                        <option value="4">Quinta</option>
-                        <option value="5">Sexta</option>
-                        <option value="6">Sábado</option>
+                        @foreach( $dia_semana as $chave => $valor )
+                            <option @if((int) $horario->dia_semana == $chave) selected
+                                    @endif value="{{ $chave }}">{{ $valor }}</option>
+                        @endforeach
                     </select>
                 </div>
-                <div class="col-sm-4">
-                    <label for="horario_inicio">Horário Inicio</label>
+                <div class="col-sm-3">
+                    <label for="descricao">Horário Inicio</label>
                     <div class="input-group">
-                        <input type="text" value="{{  $horario->horario_inicio }}" name="horario_inicio"
-                               class="form-control timepicker">
+                        <input type="text" value="{{  $horario->horario_inicio }}" name="horario_inicio" id="horario_inicio"
+                               class="form-control" minlength="8" required>
 
                         <div class="input-group-addon">
                             <i class="fa fa-clock-o"></i>
@@ -50,24 +49,34 @@
                     </div>
 
                 </div>
-                <div class="col-sm-4">
-                    <label for="horario_final">Horário Final</label>
-                    <input type="text" value="{{  $horario->horario_final }}" name="horario_final" class="form-control"
-                           required>
+                <div class="col-sm-3">
+                    <label for="descricao">Horário Final</label>
+                    <div class="input-group">
+                        <input type="text" value="{{  $horario->horario_final }}" name="horario_final" id="horario_final"
+                               class="form-control" minlength="8" required>
+                        <div class="input-group-addon">
+                            <i class="fa fa-clock-o"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <label for="quantidade_consultas">Quantidade de consultas</label>
+                    <input type="text" value="{{  $horario->quantidade_consultas }}" name="quantidade_consultas"
+                           class="form-control" maxlength="2" required>
                 </div>
 
             </div>
             <div class=" row">
-                <div class="col-sm-6">
-                    <label for="quantidade_consultas">Quantidade de consultas</label>
-                    <input type="text" value="{{  $horario->quantidade_consultas }}" name="quantidade_consultas"
-                           class="form-control" required>
-                </div>
-                <div class="col-sm-6">
+
+                <div class="col-sm-4">
                     <label for="profissional_id">Profissional</label>
-                    <input type="text" value="{{  $horario->profissional_id }}" name="profissional_id"
-                           placeholder="Descrição"
-                           class="form-control" required>
+                    <select class="form-control" name="profissional_id">
+                        @foreach($profissionais as $profissional)
+                            <option @if((int) $horario->profissional_id === $profissional->id) selected
+                                    @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome}}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
@@ -76,6 +85,5 @@
             <button type="submit" class="btn btn-danger">Atualizar Profissão</button>
         </div>
     </form>
-
 
 @stop

@@ -20,7 +20,7 @@ class PacienteController extends Controller
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return response()->json(Paciente::find($id), 201);
+        return response()->json(Paciente::with('pessoa', 'plano')->find($id), 201);
     }
 
     // INSERT
@@ -47,8 +47,6 @@ class PacienteController extends Controller
         return response()->json($profissonal->with('pessoa')->find($profissonal->id), 201);
 
     }
-
-
 
     // UPDATE
     public function update(Request $request, Paciente $paciente)

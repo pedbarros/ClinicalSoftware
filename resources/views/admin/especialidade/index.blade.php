@@ -29,11 +29,13 @@
                 <div class=" row">
                     <div class="col-sm-3">
                         <label for="name">Nome</label>
-                        <input type="text" value="{{  old('nome') }}" name="nome" placeholder="Nome" class="form-control" required>
+                        <input type="text" value="{{  old('nome') }}" name="nome" class="form-control" maxlength="50" required>
                     </div>
-                    <div class="col-sm-3">
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
                         <label for="name">Descrição</label>
-                        <input type="text" value="{{ old('descricao') }}" name="descricao" placeholder="Descrição" class="form-control" required>
+                        <textarea class="form-control" name="descricao" rows="3" maxlength="255" required>{{ old('descricao') }}</textarea>
                     </div>
                 </div>
             </div>

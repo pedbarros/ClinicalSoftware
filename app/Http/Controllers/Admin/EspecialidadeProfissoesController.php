@@ -41,16 +41,6 @@ class EspecialidadeProfissoesController extends Controller
         return view('admin.especialidade-profissao.index', compact('especialidades', 'profissoes', 'especialidades_profissoes', 'status'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -71,64 +61,9 @@ class EspecialidadeProfissoesController extends Controller
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao inserir a especialidade a profissão!');
+                ->with('error', $especialidade_profissao->msg);
         }
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        return "Entrou no show";
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $request = Request::create('/api/especialidade', 'GET');
-        $especialidade = json_decode(Route::dispatch($request)->getContent());
-
-        $request = Request::create('/api/especialidade', 'GET');
-        $especialidades = json_decode(Route::dispatch($request)->getContent());
-
-        $request = Request::create('/api/profissao', 'GET');
-        $profissoes = json_decode(Route::dispatch($request)->getContent());
-
-        $status = $this->status;
-        return view('admin.especialidade-profissao.edit', compact('especialidade', 'especialidades', 'profissoes', 'status'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $request = Request::create('/api/especialidade/'.$id, 'PUT', $request->all());
-        $especialidade = json_decode(Route::dispatch($request)->getContent());
-// dd($profissao);
-        if ($especialidade) {
-            return redirect()
-                ->route('especialidade-profissao.index')
-                ->with('success', 'Especialidade atualizada com sucesso!');
-        } else {
-            return redirect()
-                ->back()
-                ->with('error', 'Falha ao atualizar');
-        }
     }
 
     /**

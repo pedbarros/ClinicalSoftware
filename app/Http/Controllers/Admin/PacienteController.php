@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 class PacienteController extends Controller
 {
     private $paciente;
+    private $sexos = ["M" => "Masculino", "F" => "Feminino"];
 
     public function __construct(Paciente $paciente)
     {
@@ -30,7 +31,8 @@ class PacienteController extends Controller
         $request = Request::create('/api/plano', 'GET');
         $planos = json_decode(Route::dispatch($request)->getContent());
         /// dd($especialidades);
-        return view('admin.paciente.index', compact('pacientes', 'planos'));
+        $sexos = $this->sexos;
+        return view('admin.paciente.index', compact('pacientes', 'planos', 'sexos'));
     }
 
 
@@ -54,12 +56,17 @@ class PacienteController extends Controller
 
     public function edit($id)
     {
-        $pacientes = $this->paciente->all();
-        $paciente = $this->paciente->find($id);
+        $request = Request::create('/api/paciente', 'GET');
+        $pacientes = json_decode(Route::dispatch($request)->getContent());
+
+        $request = Request::create('/api/paciente/' . $id, 'GET');
+        $paciente = json_decode(Route::dispatch($request)->getContent());
+
         $request = Request::create('/api/plano', 'GET');
         $planos = json_decode(Route::dispatch($request)->getContent());
+        $sexos = $this->sexos;
 
-        return view('admin.paciente.edit', compact('paciente', 'pacientes', 'planos'));
+        return view('admin.paciente.edit', compact('paciente', 'pacientes', 'planos', 'sexos'));
     }
 
     public function update(Request $request, $id)

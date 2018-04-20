@@ -12,7 +12,7 @@ class Agenda extends Model
         'data_agendamento', 'horario_inicial',
         'horario_final', 'obs',
         'status_agendamento',
-        'profissional_id','paciente_id',
+        'profissional_id', 'paciente_id',
     ];
 
     public $timestamps = false;
@@ -27,4 +27,11 @@ class Agenda extends Model
         return $this->belongsTo('App\Models\Profissional', 'profissional_id');
     }
 
+   /* public function teste()
+    {
+        return $this->hasManyThrough(
+            'App\Owner', 'App\Network',
+            'location_id', 'network_id', 'id'
+        );
+    }*/
 }
