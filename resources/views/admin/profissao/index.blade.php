@@ -29,7 +29,8 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="descricao">Nome</label>
-                    <input type="text" value="{{  old('descricao') }}" name="descricao" class="form-control" maxlength="50" required>
+                    <input type="text" value="{{  old('descricao') }}" name="descricao" class="form-control"
+                           maxlength="50" required>
                 </div>
             </div>
         </div>

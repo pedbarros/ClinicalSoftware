@@ -18,7 +18,7 @@ class Paciente extends Model
 
     public function pessoa()
     {
-        return $this->belongsToMany('App\Models\Pessoa', 'pessoa_id');
+        return $this->belongsTo('App\Models\Pessoa', 'pessoa_id');
         // return $this->hasMany('App\Models\Pessoa', 'pessoa_id');
     }
 

@@ -15,7 +15,6 @@
             {{ session('error') }}
         </div>
     @endif
-
     <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">

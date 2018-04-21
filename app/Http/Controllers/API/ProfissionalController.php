@@ -13,6 +13,7 @@ class ProfissionalController extends Controller
     // SELECT * FROM ALL
     public function index()
     {
+        // dd(Profissional::with('pessoas', 'especialidades', 'planos')->get());
         //return response()->json(Profissional::all(), 201);
         return response()->json(Profissional::with('pessoas', 'especialidades', 'planos')->get(), 201);
     }

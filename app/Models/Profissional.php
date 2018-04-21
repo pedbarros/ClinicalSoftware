@@ -18,7 +18,7 @@ class Profissional extends Model
 
     public function pessoas()
     {
-         return $this->belongsToMany('App\Models\Pessoa', 'pessoa_id');
+         return $this->belongsTo('App\Models\Pessoa', 'pessoa_id');
         // return $this->hasMany('App\Models\Pessoa', 'pessoa_id');
     }
 
