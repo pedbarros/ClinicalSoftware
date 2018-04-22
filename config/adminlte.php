@@ -173,26 +173,9 @@ return [
                     'text' => 'Plano a um Profissional',
                     'url'  => '/plano-profissional',
                 ],
-            ],
-        ],
-    ],
-
-
-
-
-    'menuUsuario' => [
-        'MENU',
-        [
-            'text'    => 'USUÁRIO',
-            'icon'    => 'share',
-            'submenu' => [
                 [
-                    'text' => 'Profissão a uma Especialidade',
-                    'url'  => '/especialidade-profissao',
-                ],
-                [
-                    'text' => 'Plano a um Profissional',
-                    'url'  => '/plano-profissional',
+                    'text' => 'Login para uma pessoa',
+                    'url'  => '/login-pessoa',
                 ],
             ],
         ],

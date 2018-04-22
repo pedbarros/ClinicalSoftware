@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    {{auth()->user()->nivel_acesso()->first()->id}}
     @if(Auth::user()->nivel_acesso()->first()->id == 1)
         <p> É profissional da clinica! </p>
     @elseif(Auth::user()->nivel_acesso()->first()->id == 2) 
