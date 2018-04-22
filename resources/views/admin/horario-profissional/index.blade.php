@@ -98,12 +98,12 @@
                         <td>{{ $horario->horario_inicio }}</td>
                         <td>{{ $horario->horario_final }}</td>
                         <td>{{ $horario->quantidade_consultas }}</td>
-                        <td>{{ $horario->profissional_id }}</td>
+                        <td>{{ $horario->profissionais->pessoas->nome }}</td>
                         <td style="display: inline-flex;">
                             <a class="btn btn-primary" href="{{ route('horario-profissional.edit', $horario->id) }}">Editar</a>
                             <form action="{{ route('horario-profissional.destroy', $horario->id) }}" method="POST">
                                 {{ method_field('DELETE') }}{{csrf_field()}}
-                                <a onclick="return confirm('Deseja realmente deletar o horário {{  $horario->dia_semana  }}?')? this.parentNode.submit() : void(0);"
+                                <a onclick="return confirm('Deseja realmente deletar o horário do profissional {{  $horario->profissionais->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
                                    class="btn btn-info">Apagar
                                 </a>
                             </form>

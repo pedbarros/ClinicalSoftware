@@ -118,6 +118,8 @@
 
     @push('scripts')
         <script>
+            var tokenAPI = {!! json_encode(session('token')) !!};
+
             function mostrarDetalhesDoProfissional(profissional ){
                 // console.log(profissional.planos)
                 var conteudoModal = document.getElementById('conteudo');
@@ -134,12 +136,17 @@
             $('#plano_id, #profissional_id').select2();
 
             $("#modal-planos").on("hidden.bs.modal", function () {
+                $.ajax({
+                    url: "/api/profissional/",
+                    headers: {"Authorization": "Bearer "+ tokenAPI},
+                    success: function(data){
+                        console.log(data)
+                    },
+                    error: function(err) {}
 
-                /*$.get('/api/profissional/', function (busca) {
-                    console.log(busca)
                 });
 
-                $("#profissional_id").empty();*/
+                // $("#profissional_id").empty();
 
             });
         </script>

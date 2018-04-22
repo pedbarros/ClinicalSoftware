@@ -115,8 +115,8 @@
                         <td>{{ $agenda->horario_inicial }}</td>
                         <td>{{ $agenda->horario_final }}</td>
                         <td>{{ $agenda->status_agendamento }}</td>
-                        <td>{{ $agenda->profissional_id }}</td>
-                        <td>{{ $agenda->paciente_id }}</td>
+                        <td>{{ $agenda->profissional->pessoas->nome }}</td>
+                        <td>{{ $agenda->paciente->pessoa->nome }}</td>
                         <td style="display: inline-flex;">
                             <a class="btn btn-primary" href="{{ route('agenda.edit', $agenda->id) }}">Editar</a>
                             <form action="{{ route('agenda.destroy', $agenda->id) }}" method="POST">

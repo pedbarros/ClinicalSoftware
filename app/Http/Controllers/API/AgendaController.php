@@ -13,7 +13,7 @@ class AgendaController extends Controller
     public function index()
     {
         //return response()->json(Agenda::all(), 201);
-        return response()->json(Agenda::with('paciente', 'profissional')->get(), 201);
+        return response()->json(Agenda::with('paciente', 'paciente.pessoa', 'profissional', 'profissional.pessoas', 'profissional.especialidades')->get(), 201);
     }
 
     // SELECT * FROM ALL WHERE ID = :PARAMS

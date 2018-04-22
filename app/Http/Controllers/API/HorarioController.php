@@ -12,7 +12,8 @@ class HorarioController extends Controller
     // SELECT * FROM ALL
     public function index()
     {
-        return response()->json(Horario::with('profissionais')->get(), 201);
+        //dd(Horario::all()->first()->profissionais()->first()->pessoas());
+        return response()->json(Horario::with('profissionais', 'profissionais.pessoas', 'profissionais.especialidades')->get(), 201);
     }
 
     // INSERT
