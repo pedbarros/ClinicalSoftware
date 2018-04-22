@@ -10,8 +10,10 @@ class Pessoa extends Model
     protected $fillable = [
         'nome', 'sexo',
         'data_nascimento', 'telefone',
-        'cpf'
+        'cpf', 'email'
     ];
+
+    // protected $guarded = [];
 
     public $timestamps = false;
 

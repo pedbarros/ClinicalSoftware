@@ -1,7 +1,6 @@
 <?php
 
 
-
 // ROTAS QUE NECESSITAM DE AUTENTICAÇÃO
 $this->group(['middleware' => 'auth'], function () {
     //
@@ -11,7 +10,7 @@ $this->group(['middleware' => 'auth'], function () {
         $this->resource('especialidade', 'EspecialidadeController');
         $this->resource('especialidade-profissao', 'EspecialidadeProfissoesController');
         $this->resource('plano', 'PlanoController');
-        $this->resource('horario-profissional','HorarioController');
+        $this->resource('horario-profissional', 'HorarioController');
         $this->resource('profissional', 'ProfissionalController');
         $this->resource('plano-profissional', 'PlanoProfissionalController');
         $this->resource('paciente', 'PacienteController');
@@ -25,13 +24,13 @@ Auth::routes();
 $this->post('/login', function (\Illuminate\Http\Request $request, \Tymon\JWTAuth\JWTAuth $jwtAuth) {
     // dd($request->all());
     try {
-        if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' =>  $request->get('password') ], false)) {
+        if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
             $user = Auth::user();
             $token = $jwtAuth->fromUser($user);
             session(['token' => $token]);
             // dd($token);
             return redirect()->route('home');
-        }else {
+        } else {
             return "Incorreta parceiro!";
         }
     } catch (JWTException $e) {
@@ -43,16 +42,13 @@ $this->post('/login', function (\Illuminate\Http\Request $request, \Tymon\JWTAut
 // ROTAS DE LOGIN
 $this->post('/login2', function (\Illuminate\Http\Request $request) {
     // dd($request->all());
-    if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' =>  $request->get('password') ], false)) {
+    if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
         return redirect()->route('home');
     } else {
         return "Incorreta parceiro!";
     }
 })->name('login2');
 
-$this->get('/pessoateste', function () {
-   // dd(\App\Models\Pessoa::find(1)->profissional()->first()->especialidades()->first());
-});
 
 
 

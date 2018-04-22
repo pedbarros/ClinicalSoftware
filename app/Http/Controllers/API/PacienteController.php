@@ -26,25 +26,30 @@ class PacienteController extends Controller
     // INSERT
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'data_entrada' => 'required',
-            'plano_id' => 'required|integer|max:11',
-            'nome' => 'required|string|max:50',
-            'sexo' => 'required|string|max:2',
-            'data_nascimento' => 'required|string',
-            'telefone' => 'required|string|max:15',
-            'cpf' => 'required|string|max:15',
-        ]);
+        try{
+            $validator = Validator::make($request->all(), [
+                'data_entrada' => 'required',
+                'plano_id' => 'required|integer|max:11',
+                'nome' => 'required|string|max:50',
+                'sexo' => 'required|string|max:2',
+                'data_nascimento' => 'required|string',
+                'telefone' => 'required|string|max:15',
+                'cpf' => 'required|string|max:15',
+            ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => 'Os campos não foram validados'], 401);
+            if ($validator->fails()) {
+                return response()->json(['error' => 'Os campos não foram validados'], 401);
+            }
+
+            $pessoa = Pessoa::create($request->all());
+            $request["pessoa_id"] = $pessoa->id;
+            $profissonal = Paciente::create($request->all());
+
+            return response()->json($profissonal->with('pessoa')->find($profissonal->id), 201);
+        }catch (\Exception $e){
+            dd($e);
         }
 
-        $pessoa = Pessoa::create($request->all());
-        $request["pessoa_id"] = $pessoa->id;
-        $profissonal = Paciente::create($request->all());
-
-        return response()->json($profissonal->with('pessoa')->find($profissonal->id), 201);
 
     }
 

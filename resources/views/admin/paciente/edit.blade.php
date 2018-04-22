@@ -61,6 +61,13 @@
                            required>
                 </div>
 
+
+                <div class="col-sm-3">
+                    <label for="cpf">Email</label>
+                    <input type="email" value="{{$paciente->pessoa->email}}" id="email" name="email" class="form-control" minlength="30"
+                           required>
+                </div>
+
                 <div class="col-sm-3">
                     <label>Plano</label>
                     <select class="form-control" name="plano_id" id="plano_id">
