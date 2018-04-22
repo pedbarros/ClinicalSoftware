@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Models\Pessoa', 'pessoa_id');
     }
+
+    public function nivel_acesso()
+    {
+        return $this->belongsTo('App\Models\NivelAcesso', 'nivel_id');
+    }
 }

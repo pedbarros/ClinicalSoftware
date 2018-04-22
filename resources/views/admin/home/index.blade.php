@@ -7,8 +7,10 @@
 @stop
 
 @section('content')
-    @if(Auth::user()->pessoa()->first()->profissional()->first())
+    @if(Auth::user()->nivel_acesso()->first()->id == 1)
         <p> É profissional da clinica! </p>
+    @elseif(Auth::user()->nivel_acesso()->first()->id == 2) 
+            <p> É profissional da clinica! </p>
     @else
         <p> Não é profissional da clinica! </p>
     @endif
