@@ -29,7 +29,7 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label>Profissão</label>
-                    <select class="form-control" name="profissao_id">
+                    <select class="form-control" name="profissao_id" id="profissao_id">
                         @foreach($profissoes as $profissao)
                             <option @if((int) old('id') === $profissao->id) selected
                                     @endif value="{{ $profissao->id }}">{{ $profissao->descricao }}</option>
@@ -38,7 +38,7 @@
                 </div>
                 <div class="col-sm-3">
                     <label>Especialidade</label>
-                    <select class="form-control" name="especialidade_id">
+                    <select class="form-control" name="especialidade_id"  id="especialidade_id">
                         @foreach($especialidades as $especialidade)
                             <option @if((int) old('id') === $especialidade->id) selected
                                     @endif value="{{ $especialidade->id }}">{{ $especialidade->nome }}</option>
@@ -105,4 +105,12 @@
             <p>Não há especialidades cadastradas</p>
         @endif
     </div>
+
+    @push('scripts')
+    <script>
+        $(document).ready(function(){
+            $('#especialidade_id, #profissao_id').select2();
+        });
+    </script>
+    @endpush
 @stop

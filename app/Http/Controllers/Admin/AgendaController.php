@@ -44,7 +44,7 @@ class AgendaController extends Controller
         // dd($request->all());
         $request = Request::create('/api/agenda', 'POST', $request->all());
         $agenda = json_decode(Route::dispatch($request)->getContent());
-//dd($agenda);
+// dd($agenda);
         if ($agenda) {
             return redirect()
                 ->route('agenda.index')

@@ -63,7 +63,7 @@
 
                 <div class="col-sm-3">
                     <label>Plano</label>
-                    <select class="form-control" name="plano_id">
+                    <select class="form-control" name="plano_id" id="plano_id">
                         @foreach($planos as $plano)
                             <option @if((int) $paciente->plano_id === $plano->id) selected
                                     @endif value="{{ $plano->id }}">{{ $plano->nome_plano }}</option>
@@ -86,6 +86,7 @@
             $(document).ready(function(){
                 $('#telefone').mask('(99) 99999-9999');
                 $('#cpf').mask('999.999.999-99');
+                $('#plano_id').select2();
             });
         </script>
     @endpush

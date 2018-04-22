@@ -29,7 +29,7 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label>Plano</label>
-                    <select class="form-control" name="plano_id">
+                    <select class="form-control" name="plano_id" id="plano_id">
                         @foreach($planos as $plano)
                             <option @if((int) old('id') === $plano->id) selected
                                     @endif value="{{ $plano->id }}">{{ $plano->nome_plano }}</option>
@@ -107,9 +107,7 @@
                     <h2 class="modal-title">Planos</h2>
                 </div>
                 <div class="modal-body">
-                    <div id="conteudo">
-
-                    </div>
+                    <div id="conteudo"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
@@ -124,6 +122,8 @@
                 // console.log(profissional.planos)
                 var conteudoModal = document.getElementById('conteudo');
                 conteudoModal.innerHTML = '';
+               if (profissional.planos.length == 0)
+                    conteudoModal.innerHTML = "Profissional sem plano vinculado";
                 profissional.planos.forEach(function(valor, _){
                     conteudoModal.innerHTML += '- <b>' + valor.nome_plano + '</b><br>'
                 });
@@ -131,13 +131,15 @@
                 $("#modal-planos").modal();
             }
 
+            $('#plano_id, #profissional_id').select2();
+
             $("#modal-planos").on("hidden.bs.modal", function () {
 
                 /*$.get('/api/profissional/', function (busca) {
                     console.log(busca)
-                });*/
+                });
 
-                $("#profissional_id").empty();
+                $("#profissional_id").empty();*/
 
             });
         </script>

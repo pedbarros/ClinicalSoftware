@@ -63,7 +63,7 @@
 
                 <div class="col-sm-3">
                     <label>Especialidade</label>
-                    <select class="form-control" name="especialidade_id">
+                    <select class="form-control" name="especialidade_id" id="especialidade_id">
                         @foreach($especialidades as $especialidade)
                             <option @if((int) old('id') === $especialidade->id) selected
                                     @endif value="{{ $especialidade->id }}">{{ $especialidade->nome }}</option>
@@ -74,7 +74,7 @@
 
             <input type="hidden" name="data_entrada" value="{{ date('Y-m-d h:i:s') }}">
 
-            <div class="form-group">
+            <div class="form-group" style="margin-top: 5px;">
                 <button type="submit" class="btn btn-danger">Salvar Profissional</button>
             </div>
         </div>
@@ -125,6 +125,7 @@
             $(document).ready(function(){
                 $('#telefone').mask('(99) 99999-9999');
                 $('#cpf').mask('999.999.999-99');
+                $('#especialidade_id').select2();
             });
         </script>
     @endpush

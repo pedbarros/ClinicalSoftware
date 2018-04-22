@@ -62,7 +62,7 @@
 
                 <div class="col-sm-4">
                     <label>Paciente</label>
-                    <select class="form-control" name="paciente_id">
+                    <select class="form-control" name="paciente_id" id="paciente_id">
                         @foreach($pacientes as $paciente)
                             <option @if((int) $agenda->paciente_id === $paciente->id) selected
                                     @endif value="{{ $paciente->id }}">{{ $paciente->pessoa->nome }}</option>
@@ -72,7 +72,7 @@
 
                 <div class="col-sm-4">
                     <label>Profissional</label>
-                    <select class="form-control" name="profissional_id">
+                    <select class="form-control" name="profissional_id" id="profissional_id">
                         @foreach($profissionais	 as $profissional)
                             <option @if((int) $agenda->profissional_id === $profissional->id) selected
                                     @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome }}</option>
@@ -95,6 +95,12 @@
             <button type="submit" class="btn btn-danger">Atualizar Agendamento</button>
         </div>
     </form>
-
+    @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#profissional_id, #paciente_id').select2();
+        });
+    </script>
+    @endpush
 
 @stop

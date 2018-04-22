@@ -3,7 +3,7 @@
 
 
 // ROTAS QUE NECESSITAM DE AUTENTICAÇÃO
-$this->group(['middleware' => ['auth']], function () {
+$this->group(['middleware' => 'auth'], function () {
     //
     $this->group(['namespace' => 'Admin'], function () {
         $this->get('/', 'HomeController@index')->name('home');
@@ -22,14 +22,33 @@ $this->group(['middleware' => ['auth']], function () {
 Auth::routes();
 
 // ROTAS DE LOGIN
-$this->post('/login', function (\Illuminate\Http\Request $request) {
-   // dd($request->all());
+$this->post('/login', function (\Illuminate\Http\Request $request, \Tymon\JWTAuth\JWTAuth $jwtAuth) {
+    // dd($request->all());
+    try {
+        if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' =>  $request->get('password') ], false)) {
+            $user = Auth::user();
+            $token = $jwtAuth->fromUser($user);
+            session(['token' => $token]);
+            // dd($token);
+            return redirect()->route('home');
+        }else {
+            return "Incorreta parceiro!";
+        }
+    } catch (JWTException $e) {
+        return response()->json(['access' => false, 'error' => 'Não foi possível criar token'], 500);
+    }
+})->name('login');
+
+
+// ROTAS DE LOGIN
+$this->post('/login2', function (\Illuminate\Http\Request $request) {
+    // dd($request->all());
     if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' =>  $request->get('password') ], false)) {
         return redirect()->route('home');
     } else {
         return "Incorreta parceiro!";
     }
-})->name('login');
+})->name('login2');
 
 $this->get('/pessoateste', function () {
    // dd(\App\Models\Pessoa::find(1)->profissional()->first()->especialidades()->first());

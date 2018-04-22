@@ -15,6 +15,8 @@
             {{ session('error') }}
         </div>
     @endif
+
+
     <form action="" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
@@ -43,17 +45,17 @@
 
             </div>
             <div class=" row">
-                <div class="col-sm-4">
+               <!-- <div class="col-sm-4">
                     <label>Status Agendamento</label>
                     <select class="form-control" name="status_agendamento">
                         <option value="C">Concluído</option>
                         <option value="F">Faltou</option>
                         <option value="X">Cancelado</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="col-sm-4">
                     <label>Profissional</label>
-                    <select class="form-control" name="profissional_id">
+                    <select class="form-control" name="profissional_id" id="profissional_id">
                         @foreach($profissionais as $profissional)
                             <option @if((int) old('id') === $profissional->id) selected
                                     @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome}}</option>
@@ -62,7 +64,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label>Paciente</label>
-                    <select class="form-control" name="paciente_id">
+                    <select class="form-control" name="paciente_id" id="paciente_id">
                         @foreach($pacientes as $paciente)
                             <option @if((int) old('id') === $paciente->id) selected
                                     @endif value="{{ $paciente->id }}">{{ $paciente->pessoa->nome}}</option>
@@ -80,10 +82,14 @@
             </div>
         </div>
 
+        <input hidden value="E" name="status_agendamento">
+
         <div class="form-group">
             <button type="submit" class="btn btn-danger">Salvar Agendamento</button>
         </div>
     </form>
+
+    {{-- 'Token:' . session('token') --}}
 
     <h2>Lista de Agendamentos dos profissionais</h2>
     <div class="box-body">
@@ -129,4 +135,11 @@
         @endif
     </div>
 
+    @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $('#profissional_id, #paciente_id').select2();
+        });
+    </script>
+    @endpush
 @stop

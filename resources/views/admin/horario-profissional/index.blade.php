@@ -60,7 +60,7 @@
             <div class=" row">
                 <div class="col-sm-4">
                     <label>Profissional</label>
-                    <select class="form-control" name="profissional_id">
+                    <select class="form-control" name="profissional_id" id="profissional_id">
                         @foreach($profissionais as $profissional)
                             <option @if((int) old('id') === $profissional->id) selected
                                     @endif value="{{ $profissional->id }}">{{ $profissional->pessoas->nome}}</option>
@@ -119,6 +119,7 @@
     @push('scripts')
         <script>
             $(document).ready(function () {
+                $('#profissional_id').select2();
                 $('#horario_inicio, #horario_final').mask('99:99:99');
             });
         </script>

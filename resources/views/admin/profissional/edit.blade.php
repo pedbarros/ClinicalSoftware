@@ -80,8 +80,8 @@
 
             <input type="hidden" name="data_entrada" value="{{ date('Y-m-d h:i:s') }}">
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-danger">Salvar</button>
+            <div class="form-group"  style="margin-top: 5px;">
+                <button type="submit" class="btn btn-danger">Atualizar profissional</button>
             </div>
         </div>
     </form>
