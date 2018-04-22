@@ -89,16 +89,17 @@ class ProfissionalController extends Controller
     public function destroy($id)
     {
         $request = Request::create('/api/profissional/' . $id, 'DELETE');
-        $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
-        // dd($statusCode);
-        if ($statusCode == 204) { // No Content
+        $statusCode = Route::dispatch($request)->getData();
+        // dd($statusCode->destroy);
+        if ($statusCode->destroy == true) { // No Content
             return redirect()
                 ->route('profissional.index')
                 ->with('success', 'Profissional apagado com sucesso!');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao apagar o Profissional');
+                ->with('error', $statusCode->msg);
         }
+
     }
 }

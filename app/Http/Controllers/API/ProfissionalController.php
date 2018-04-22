@@ -74,14 +74,22 @@ class ProfissionalController extends Controller
     // DELETE
     public function destroy(Profissional $profissional)
     {
-        try{
+        try {
+
             $profissional->delete();
             $profissional->pessoas->delete();
 
-            return response()->json(null, 204);
-        }catch (\Exception $e){
-            // dd($e);
-            return response()->json(['destroy' => false, 'msg' => 'Não foi possível apagar esse profissional'], 500);
+            // return response()->json(null, 204);
+            return response()->json(['destroy' => true, 'msg' => 'Profissional inserido com sucesso'], 204);
+        } catch (\Exception $e) {
+            // dd($e->errorInfo[1]);
+            $codigo_erro = $e->errorInfo[1];
+
+            if ($codigo_erro == 1451)
+                $msg = "Não é possível deletar, pois esse profissional já está sendo utilizado em outros serviços do sistema.";
+            else
+                $msg = "Erro ao cadastrar o profissional!";
+            return response()->json(['destroy' => false, 'msg' => $msg], 500);
         }
 
     }

@@ -99,16 +99,16 @@ class EspecialidadeController extends Controller
     {
 
         $request = Request::create('/api/especialidade/'.$id, 'DELETE');
-        $statusCode =  Route::dispatch($request)->getStatusCode();
- //dd($statusCode);
-        if ($statusCode == 204) { // No Content
+        $statusCode =  Route::dispatch($request)->getData();
+ // dd($statusCode->destroy);
+        if ($statusCode->destroy == true) { // No Content
             return redirect()
                 ->route('especialidade.index')
                 ->with('success', 'Especialidade apagada com sucesso!');
         } else {
             return redirect()
                 ->back()
-                ->with('error', 'Falha ao apagar');
+                ->with('error', $statusCode->msg);
         }
     }
 }

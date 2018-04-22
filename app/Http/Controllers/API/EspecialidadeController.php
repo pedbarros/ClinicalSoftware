@@ -59,8 +59,21 @@ class EspecialidadeController extends Controller
     // DELETE
     public function destroy(Especialidade $especialidade)
     {
-        $especialidade->delete();
+        try {
 
-        return response()->json(null, 204);
+            $especialidade->delete();
+
+            // return response()->json(null, 204);
+            return response()->json(['destroy' => true, 'msg' => 'Especialidade inserida com sucesso'], 204);
+        } catch (\Exception $e) {
+            // dd($e->errorInfo[1]);
+            $codigo_erro = $e->errorInfo[1];
+
+            if ($codigo_erro == 1451)
+                $msg = "Não é possível deletar, pois essa especialidade já está sendo utilizada em outros serviços do sistema.";
+            else
+                $msg = "Erro ao cadastrar a especialidade!";
+            return response()->json(['destroy' => false, 'msg' => $msg], 500);
+        }
     }
 }
