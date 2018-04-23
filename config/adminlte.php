@@ -112,12 +112,12 @@ return [
         [
             'text'        => 'Inicio',
             'url'         => '/',
-            'icon'        => 'file',
+            'icon'        => 'home',
         ],
         [
             'text'        => 'Agenda',
             'url'         => '/agenda',
-            'icon'        => 'file',
+            'icon'        => 'calendar',
             'label_color' => 'success',
             'submenu' => [
                 [
@@ -133,7 +133,7 @@ return [
         'MANUTENÇÃO',
         [
             'text'    => 'Cadastro',
-            'icon'    => 'share',
+            'icon'    => 'registered',
             'submenu' => [
                 [
                     'text' => 'Profissões',
@@ -163,7 +163,7 @@ return [
         ],
         [
             'text'    => 'Adicionar',
-            'icon'    => 'share',
+            'icon'    => 'plus',
             'submenu' => [
                 [
                     'text' => 'Profissão a uma Especialidade',

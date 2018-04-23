@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-danger">Vincular</button>
+            <button type="submit" class="btn btn-danger">Adicionar</button>
         </div>
     </form>
 
@@ -60,10 +60,10 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Lista de Usuários</h3>
-
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar">
+                            <input type="text" name="table_search" class="form-control pull-right"
+                                   placeholder="Procurar">
 
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -123,12 +123,11 @@
                 $('#nivel_id').change(function () {
                     var objNivel = JSON.parse($(this).val())
                     // console.log( $(this).val() )
-
                     $("#pessoa_id").empty();
                     $.ajax({
                         url: objNivel.api,
                         headers: {"Authorization": "Bearer " + tokenAPI},
-                        success: (data) = > {
+                        success: (data) => {
                         $.each(data, function (i, item) {
                         $('#pessoa_id').append($('<option>', {
                             value: item.pessoas.id,
@@ -141,7 +140,6 @@
                     }
                 })
                     ;
-
                 });
             });
         </script>
