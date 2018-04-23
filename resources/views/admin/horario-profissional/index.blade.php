@@ -75,47 +75,74 @@
         </div>
     </form>
 
-    <h2>Lista de Horários dos profissionais</h2>
-    <div class="box-body">
-        @if($horarios)
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Dia da Semana</th>
-                    <th>Horario de Inicio</th>
-                    <th>Horario Final</th>
-                    <th>Quantidade de consultas</th>
-                    <th>Profissional</th>
-                    <th>Ações</th>
-                <tr>
-                </thead>
-                <tbody>
-                @foreach($horarios as $horario)
-                    <tr>
-                        <td>{{ $horario->id }}</td>
-                        <td>{{ $horario->dia_semana }}</td>
-                        <td>{{ $horario->horario_inicio }}</td>
-                        <td>{{ $horario->horario_final }}</td>
-                        <td>{{ $horario->quantidade_consultas }}</td>
-                        <td>{{ $horario->profissionais->pessoas->nome }}</td>
-                        <td style="display: inline-flex;">
-                            <a class="btn btn-primary" href="{{ route('horario-profissional.edit', $horario->id) }}">Editar</a>
-                            <form action="{{ route('horario-profissional.destroy', $horario->id) }}" method="POST">
-                                {{ method_field('DELETE') }}{{csrf_field()}}
-                                <a onclick="return confirm('Deseja realmente deletar o horário do profissional {{  $horario->profissionais->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
-                                   class="btn btn-info">Apagar
-                                </a>
-                            </form>
-                        </td>
-                    <tr>
-                @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Não há horários cadastrados</p>
-        @endif
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Lista de Horários dos profissionais</h3>
+
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    @if($horarios)
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Dia da Semana</th>
+                                <th>Horario de Inicio</th>
+                                <th>Horario Final</th>
+                                <th>Quantidade de consultas</th>
+                                <th>Profissional</th>
+                                <th>Ações</th>
+                            <tr>
+                            </thead>
+                            <tbody>
+                            @foreach($horarios as $horario)
+                                <tr>
+                                    <td>{{ $horario->id }}</td>
+                                    <td>{{ $horario->dia_semana }}</td>
+                                    <td>{{ $horario->horario_inicio }}</td>
+                                    <td>{{ $horario->horario_final }}</td>
+                                    <td>{{ $horario->quantidade_consultas }}</td>
+                                    <td>{{ $horario->profissionais->pessoas->nome }}</td>
+                                    <td style="display: inline-flex;">
+                                        <a class="btn btn-primary"
+                                           href="{{ route('horario-profissional.edit', $horario->id) }}">Editar</a>
+                                        <form action="{{ route('horario-profissional.destroy', $horario->id) }}"
+                                              method="POST">
+                                            {{ method_field('DELETE') }}{{csrf_field()}}
+                                            <a onclick="return confirm('Deseja realmente deletar o horário do profissional {{  $horario->profissionais->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
+                                               class="btn btn-info">Apagar
+                                            </a>
+                                        </form>
+                                    </td>
+                                <tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>Não há horários cadastrados</p>
+                    @endif
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
     </div>
+
+
     @push('scripts')
         <script>
             $(document).ready(function () {

@@ -15,6 +15,7 @@ $this->group(['middleware' => 'auth'], function () {
         $this->resource('plano-profissional', 'PlanoProfissionalController');
         $this->resource('paciente', 'PacienteController');
         $this->resource('agenda', 'AgendaController');
+        $this->resource('login-pessoa', 'LoginController');
     });
 });
 
@@ -27,6 +28,7 @@ $this->post('/login', function (\Illuminate\Http\Request $request, \Tymon\JWTAut
         if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
             $user = Auth::user();
             $token = $jwtAuth->fromUser($user);
+            // session('token');
             session(['token' => $token]);
             // dd($token);
             return redirect()->route('home');

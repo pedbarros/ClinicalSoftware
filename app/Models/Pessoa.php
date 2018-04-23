@@ -17,11 +17,6 @@ class Pessoa extends Model
 
     public $timestamps = false;
 
-    /*public function getDataNascimentoAttribute($date)
-    {
-        return $date->toFormattedDateString();
-    }*/
-
     public function user()
     {
         return $this->hasMany('App\User', 'pessoa_id');

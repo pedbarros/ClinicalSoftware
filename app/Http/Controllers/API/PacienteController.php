@@ -14,13 +14,13 @@ class PacienteController extends Controller
     public function index()
     {
         //return response()->json(Paciente::all(), 201);
-        return response()->json(Paciente::with('pessoa', 'plano')->get(), 201);
+        return response()->json(Paciente::with('pessoas', 'plano')->get(), 201);
     }
 
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return response()->json(Paciente::with('pessoa', 'plano')->find($id), 201);
+        return response()->json(Paciente::with('pessoas', 'plano')->find($id), 201);
     }
 
     // INSERT
@@ -45,7 +45,7 @@ class PacienteController extends Controller
             $request["pessoa_id"] = $pessoa->id;
             $profissonal = Paciente::create($request->all());
 
-            return response()->json($profissonal->with('pessoa')->find($profissonal->id), 201);
+            return response()->json($profissonal->with('pessoas')->find($profissonal->id), 201);
         }catch (\Exception $e){
             dd($e);
         }
@@ -69,7 +69,7 @@ class PacienteController extends Controller
 
         $paciente->pessoa()->update($request->all());
 
-        return response()->json($paciente->with('pessoa')->find($paciente->id), 200);
+        return response()->json($paciente->with('pessoas')->find($paciente->id), 200);
     }
 
     // DELETE

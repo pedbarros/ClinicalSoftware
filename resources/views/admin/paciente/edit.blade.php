@@ -33,7 +33,7 @@
                     <label>Status</label>
                     <select class="form-control" name="sexo">
                         @foreach( $sexos as $chave => $valor )
-                            <option @if((string) $paciente->pessoa->sexo == $chave) selected
+                            <option @if((string) $paciente->pessoas->sexo == $chave) selected
                                     @endif value="{{ $chave }}">{{ $valor }}</option>
                         @endforeach
                     </select>
@@ -41,7 +41,7 @@
 
                 <div class="col-sm-4">
                     <label for="nome">Data de Nascimento</label>
-                    <input type="date" value="{{ Carbon\Carbon::parse($paciente->pessoa->data_nascimento)->format('Y-m-d') }}" name="data_nascimento" class="form-control"
+                    <input type="date" value="{{ Carbon\Carbon::parse($paciente->pessoas->data_nascimento)->format('Y-m-d') }}" name="data_nascimento" class="form-control"
                            required>
                 </div>
 
@@ -51,20 +51,20 @@
             <div class=" row">
                 <div class="col-sm-3">
                     <label for="telefone">Telefone</label>
-                    <input type="text" value="{{$paciente->pessoa->telefone}}" id="telefone" name="telefone"
+                    <input type="text" value="{{$paciente->pessoas->telefone}}" id="telefone" name="telefone"
                            class="form-control" minlength="15" required>
                 </div>
 
                 <div class="col-sm-3">
                     <label for="cpf">CPF</label>
-                    <input type="text" value="{{$paciente->pessoa->cpf}}" id="cpf" name="cpf" class="form-control" minlength="14"
+                    <input type="text" value="{{$paciente->pessoas->cpf}}" id="cpf" name="cpf" class="form-control" minlength="14"
                            required>
                 </div>
 
 
                 <div class="col-sm-3">
                     <label for="cpf">Email</label>
-                    <input type="email" value="{{$paciente->pessoa->email}}" id="email" name="email" class="form-control" minlength="30"
+                    <input type="email" value="{{$paciente->pessoas->email}}" id="email" name="email" class="form-control" maxlength="30"
                            required>
                 </div>
 

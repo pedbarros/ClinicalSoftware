@@ -46,39 +46,64 @@
         </div>
     </form>
 
-    <h2>Lista de Planos</h2>
-    <div class="box-body">
-        @if($planos)
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome do Plano</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                <tr>
-                </thead>
-                <tbody>
-                @foreach($planos as $plano)
-                    <tr>
-                        <td>{{ $plano->id }}</td>
-                        <td>{{ $plano->nome_plano }}</td>
-                        <td>{{ $plano->status }}</td>
-                        <td style="display: inline-flex;">
-                            <a class="btn btn-primary" href="{{ route('plano.edit', $plano->id) }}">Editar</a>
-                            <form action="{{ route('plano.destroy', $plano->id) }}" method="POST">
-                                {{ method_field('DELETE') }}{{csrf_field()}}
-                                <a onclick="return confirm('Deseja realmente deletar o plano {{  $plano->nome_plano  }}?')? this.parentNode.submit() : void(0);"
-                                   class="btn btn-info">Apagar
-                                </a>
-                            </form>
-                        </td>
-                    <tr>
-                @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Não há planos cadastrados</p>
-        @endif
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Lista de Planos</h3>
+
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    @if($planos)
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome do Plano</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            <tr>
+                            </thead>
+                            <tbody>
+                            @foreach($planos as $plano)
+                                <tr>
+                                    <td>{{ $plano->id }}</td>
+                                    <td>{{ $plano->nome_plano }}</td>
+                                    <td>{{ $plano->status }}</td>
+                                    <td style="display: inline-flex;">
+                                        <a class="btn btn-primary"
+                                           href="{{ route('plano.edit', $plano->id) }}">Editar</a>
+                                        <form action="{{ route('plano.destroy', $plano->id) }}" method="POST">
+                                            {{ method_field('DELETE') }}{{csrf_field()}}
+                                            <a onclick="return confirm('Deseja realmente deletar o plano {{  $plano->nome_plano  }}?')? this.parentNode.submit() : void(0);"
+                                               class="btn btn-info">Apagar
+                                            </a>
+                                        </form>
+                                    </td>
+                                <tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>Não há planos cadastrados</p>
+                    @endif
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
     </div>
+
 @stop

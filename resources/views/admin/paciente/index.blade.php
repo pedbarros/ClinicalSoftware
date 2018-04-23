@@ -57,7 +57,7 @@
 
                 <div class="col-sm-3">
                     <label for="cpf">Email</label>
-                    <input type="email" value="" id="email" name="email" class="form-control" minlength="30"
+                    <input type="email" value="" id="email" name="email" class="form-control" maxlength="30"
                            required>
                 </div>
 
@@ -80,47 +80,70 @@
         </div>
     </form>
 
-    <h2>Lista de Pacientes</h2>
-    <div class="box-body">
-        @if($pacientes)
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Data de Entrada</th>
-                    <th>Plano</th>
-                    <th>Ações</th>
-                <tr>
-                </thead>
-                <tbody>
-                @foreach($pacientes as $paciente)
-                    <tr>
-                        <td>{{ $paciente->id }}</td>
-                        <td>{{ $paciente->pessoa->nome }}</td>
-                        <td>{{ $paciente->data_entrada }}</td>
-                        <td>{{ $paciente->plano->nome_plano }}</td>
-                        <td style="display: inline-flex;">
-                            <a class="btn btn-primary"
-                               href="{{ route('paciente.edit', $paciente->id) }}">Editar</a>
-                            <form action="{{ route('paciente.destroy', $paciente->id) }}" method="POST">
-                                {{ method_field('DELETE') }}{{csrf_field()}}
-                                <a onclick="return confirm('Deseja realmente deletar o paciente {{  $paciente->pessoa->nome  }}?')? this.parentNode.submit() : void(0);"
-                                   class="btn btn-info">Apagar
-                                </a>
-                            </form>
-                        </td>
-                    <tr>
-                @endforeach
-                </tbody>
-            </table>
-        @else
-            <p>Não há pacientes cadastrados</p>
-        @endif
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Lista de Pacientes</h3>
+
+                    <div class="box-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar">
+
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    @if($pacientes)
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>Data de Entrada</th>
+                                <th>Plano</th>
+                                <th>Ações</th>
+                            <tr>
+                            </thead>
+                            <tbody>
+                            @foreach($pacientes as $paciente)
+                                <tr>
+                                    <td>{{ $paciente->id }}</td>
+                                    <td>{{ $paciente->pessoas->nome }}</td>
+                                    <td>{{ $paciente->data_entrada }}</td>
+                                    <td>{{ $paciente->plano->nome_plano }}</td>
+                                    <td style="display: inline-flex;">
+                                        <a class="btn btn-primary"
+                                           href="{{ route('paciente.edit', $paciente->id) }}">Editar</a>
+                                        <form action="{{ route('paciente.destroy', $paciente->id) }}" method="POST">
+                                            {{ method_field('DELETE') }}{{csrf_field()}}
+                                            <a onclick="return confirm('Deseja realmente deletar o paciente {{  $paciente->pessoas->nome  }}?')? this.parentNode.submit() : void(0);"
+                                               class="btn btn-info">Apagar
+                                            </a>
+                                        </form>
+                                    </td>
+                                <tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>Não há pacientes cadastrados</p>
+                    @endif
+
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
     </div>
+
     @push('scripts')
         <script>
-            $(document).ready(function(){
+            $(document).ready(function () {
                 $('#telefone').mask('(99) 99999-9999');
                 $('#cpf').mask('999.999.999-99');
                 $('#plano_id').select2();
