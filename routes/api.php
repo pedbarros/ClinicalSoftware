@@ -8,7 +8,7 @@ Route::get('auth/logout', 'API\LoginController@logout');
 Route::get('list-users', 'API\LoginController@list_users');
 
 
-Route::group(['middleware' => 'jwt.auth', 'namespace' => 'API'], function () {
+Route::group([/*'middleware' => 'jwt.auth', */'namespace' => 'API'], function () {
 
     // ESPECIALIDADE/PROFISSÃO
     $this->get('especialidade/profissao/', 'EspecialidadeProfissoesController@index');  // especialidade/#/profissao/#
@@ -26,6 +26,8 @@ Route::group(['middleware' => 'jwt.auth', 'namespace' => 'API'], function () {
     $this->resource('profissao', 'ProfissaoController');
     $this->resource('especialidade', 'EspecialidadeController');
     $this->resource('plano', 'PlanoController');
+    //dia_semana
+    $this->any('horario/{prof}', 'HorarioController@obterHorarioMedico');
     $this->resource('horario', 'HorarioController');
     $this->resource('profissional', 'ProfissionalController');
     $this->resource('paciente', 'PacienteController');

@@ -138,8 +138,7 @@
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert("Ocorreu um erro: " + thrownError);
                     }
-                })
-                    ;
+                });
                 });
             });
         </script>

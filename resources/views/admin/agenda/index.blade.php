@@ -22,37 +22,25 @@
         <div class="form-group">
             <div class=" row">
                 <div class="col-sm-4">
-                    <label for="nome">Data de agendamento</label>
-                    <input type="date" value="" name="data_agendamento" class="form-control"
+                    <label for="data_agendamento">Data de agendamento</label>
+                    <input type="date" value="" name="data_agendamento" id="data_agendamento" class="form-control"
                            required>
                 </div>
                 <div class="col-sm-4">
-                    <label for="descricao">Horário Inicio</label>
-                    <div class="input-group">
-                        <input type="text" name="horario_inicial" class="form-control timepicker">
-
-                        <div class="input-group-addon">
-                            <i class="fa fa-clock-o"></i>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-sm-4">
-                    <label for="descricao">Horário Final</label>
-                    <input type="text" value="" name="horario_final" class="form-control"
-                           required>
+                    <label for="horario">Horário Final</label>
+                    <select class="form-control" name="horario" id="horario"></select>
                 </div>
 
             </div>
             <div class=" row">
-               <!-- <div class="col-sm-4">
-                    <label>Status Agendamento</label>
-                    <select class="form-control" name="status_agendamento">
-                        <option value="C">Concluído</option>
-                        <option value="F">Faltou</option>
-                        <option value="X">Cancelado</option>
-                    </select>
-                </div> -->
+                <!-- <div class="col-sm-4">
+                     <label>Status Agendamento</label>
+                     <select class="form-control" name="status_agendamento">
+                         <option value="C">Concluído</option>
+                         <option value="F">Faltou</option>
+                         <option value="X">Cancelado</option>
+                     </select>
+                 </div> -->
                 <div class="col-sm-4">
                     <label>Profissional</label>
                     <select class="form-control" name="profissional_id" id="profissional_id">
@@ -100,7 +88,8 @@
 
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
-                            <input type="text" name="table_search" class="form-control pull-right" placeholder="Procurar">
+                            <input type="text" name="table_search" class="form-control pull-right"
+                                   placeholder="Procurar">
 
                             <div class="input-group-btn">
                                 <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -136,7 +125,8 @@
                                     <td>{{ $agenda->profissional->pessoas->nome }}</td>
                                     <td>{{ $agenda->paciente->pessoas->nome }}</td>
                                     <td style="display: inline-flex;">
-                                        <a class="btn btn-primary" href="{{ route('agenda.edit', $agenda->id) }}">Editar</a>
+                                        <a class="btn btn-primary"
+                                           href="{{ route('agenda.edit', $agenda->id) }}">Editar</a>
                                         <form action="{{ route('agenda.destroy', $agenda->id) }}" method="POST">
                                             @csrf {{ method_field('DELETE') }}
                                             <a onclick="return confirm('Deseja realmente deletar o agendamento de {{  Carbon\Carbon::parse($agenda->data_agendamento)->format('d/m/Y')  }}?')? this.parentNode.submit() : void(0);"
@@ -162,6 +152,35 @@
     <script>
         $(document).ready(function () {
             $('#profissional_id, #paciente_id').select2();
+
+            var tokenAPI = {!! json_encode(session('token')) !!};
+
+            $('#profissional_id').change(function () {
+                var dataAgendamento = new Date($("#data_agendamento").val())
+                var diaDaSemana = dataAgendamento.getDay()
+                var idProfissional = $(this).val()
+
+
+                $("#horario").empty();
+                $.ajax({
+                        url: '/api/horario/' + idProfissional,
+                        method: "POST",
+                        data: {
+                            'dia_semana': diaDaSemana
+                        },
+                        headers: {"Authorization": "Bearer " + tokenAPI},
+                        success: (data) => {
+                            // console.log(data)
+                            $.each(data, function (i, item) {
+                                //var newDateObj = moment(data.horario_inicio).add(30, 'm').toDate();
+                             //   console.log(newDateObj)
+                            });
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Ocorreu um erro: " + thrownError);
+                }
+            });
+            });
         });
     </script>
     @endpush

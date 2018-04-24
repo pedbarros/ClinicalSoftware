@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 class HorarioController extends Controller
 {
     private $horario;
-    private $dia_semana = ["1" => "Segunda-feira", "2" => "Terça-feira", "3" => "Quarta-feira",
-                       "4" => "Quinta-feira", "5" => "Sexta-feira", "6" => "Sábado"];
+    private $dia_semana = ["0" => "Segunda-feira", "1" => "Terça-feira", "2" => "Quarta-feira",
+                       "3" => "Quinta-feira", "4" => "Sexta-feira", "5" => "Sábado"];
 
     public function __construct(Horario $horario)
     {

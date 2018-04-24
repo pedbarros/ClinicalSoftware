@@ -37,9 +37,22 @@ class HorarioController extends Controller
     }
 
     // SELECT * FROM ALL WHERE ID = :PARAMS
-    public function show($id)
+    /*public function show(Request $request, $id)
     {
-        return response()->json(Horario::with('profissionais')->find($id), 201);
+        $horario = Horario::with('profissionais')->find($id);
+        return response()->json($horario, 201);
+    }*/
+
+    public function obterHorarioMedico($id, Request $request)
+    {
+
+        $horario = Horario::with('profissionais', 'profissionais.pessoas', 'profissionais.especialidades')
+                          ->where('profissional_id', $id);
+
+        if (isset($request["dia_semana"]))
+            $horario->where('dia_semana', $request["dia_semana"]);
+
+        return response()->json($horario->get(), 201);
     }
 
 

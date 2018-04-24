@@ -9,9 +9,9 @@
 @section('content')
     {{auth()->user()->nivel_acesso()->first()->id}}
 
-    {{----}}<div class="row">
+    {{--<div class="row">
         <textarea>{{ session('token') }}</textarea>
-    </div>
+    </div>--}}
 
     @if(Auth::user()->nivel_acesso()->first()->id == 1)
         <p> É profissional da clinica! </p>
