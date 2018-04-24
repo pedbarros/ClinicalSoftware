@@ -15,23 +15,26 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'GP_USUARIO' => 'required|string|max:255|unique:gp_user',
-            'GP_PASSWORD' => 'required'
-        ]);
+        try{
+            // dd($request->all());
+            $validator = Validator::make($request->all(), [
+                'usuario' => 'required|string|max:255',
+                'password' => 'required'
+            ]);
+//dd($validator->errors());
+            if ($validator->fails()) {
+                return response()->json(['access' => false, 'error' => 'Os campos não foram validados'], 401);
+            }
 
-        if ($validator->fails()) {
-            return response()->json(['access' => false, 'error' => 'Os campos não foram validados'], 401);
+            $user = User::create($request->all());
+
+            // $user = User::first();
+            //$token = JWTAuth::fromUser($user);
+
+            return response()->json($user, 201);
+        }catch (\Exception $e){
+            dd($e);
         }
 
-        User::create([
-            'GP_USUARIO' => $request->get('GP_USUARIO'),
-            'GP_PASSWORD' => bcrypt($request->get('GP_PASSWORD')),
-        ]);
-
-        $user = User::first();
-        $token = JWTAuth::fromUser($user);
-
-        return Response::json(compact('token'));
     }
 }

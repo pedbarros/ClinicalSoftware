@@ -33,7 +33,7 @@ class AgendaController extends Controller
 
         $request = Request::create('/api/agenda', 'GET');
         $agendas = json_decode(Route::dispatch($request)->getContent());
-        /// dd($agendas);
+       //  dd($agendas);
 
         return view('admin.agenda.index', compact('profissionais', 'pacientes', 'agendas'));
     }

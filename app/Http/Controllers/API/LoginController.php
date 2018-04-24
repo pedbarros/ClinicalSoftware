@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Validator;
 use JWTFactory;
 use Tymon\JWTAuth\JWTAuth;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     /**
      * @var JWTAuth
@@ -34,7 +35,7 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-       // dd($validator->errors());
+        // dd($validator->errors());
 
         if ($validator->fails()) {
             return response()->json(['access' => false, 'error' => 'Os campos não foram validados'], 401);
@@ -82,6 +83,11 @@ class AuthController extends Controller
         return response()->json(compact('user'));
     }
 
+    public function list_users()
+    {
+        return response()->json(User::with('pessoa', 'nivel_acesso')->get(), 201);
+    }
+
     /*
     * PROCESSO LOGIN PADRÃO
     */
@@ -111,34 +117,3 @@ class AuthController extends Controller
         return response()->json(['access' => true, 'token' => $token, 'user' => $user]);
     }
 }
-
-
-/*
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Validator;
-use JWTFactory;
-use JWTAuth;
-
-class AuthController extends Controller
-{
-    public function login(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email|max:255',
-            'password' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['access' => false, 'error' => 'Os campos não foram validados'], 401);
-        }
-        $credentials = $request->only('email', 'password');
-        try {
-            if (!$token = JWTAuth::attempt($credentials)) {
-                return response()->json(['access' => false, 'error' => 'Credenciais inválidas'], 401);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['access' => false, 'error' => 'Não foi possível criar token'], 500);
-        }
-        return response()->json(['access' => true, 'token' => $token]);
-    }
-}*/

@@ -2,12 +2,13 @@
 
 
 Route::post('/auth/register', 'API\RegisterController@register');
-Route::post('auth/login', 'API\AuthController@login');
-Route::post('auth/refresh', 'API\AuthController@refresh');
-Route::get('auth/logout', 'API\AuthController@logout');
+Route::post('auth/login', 'API\LoginController@login');
+Route::post('auth/refresh', 'API\LoginController@refresh');
+Route::get('auth/logout', 'API\LoginController@logout');
+Route::get('list-users', 'API\LoginController@list_users');
 
 
-Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function () {
+Route::group(['middleware' => 'jwt.auth', 'namespace' => 'API'], function () {
 
     // ESPECIALIDADE/PROFISSÃO
     $this->get('especialidade/profissao/', 'EspecialidadeProfissoesController@index');  // especialidade/#/profissao/#
@@ -29,6 +30,8 @@ Route::group([/*'middleware' => 'jwt.auth',*/ 'namespace' => 'API'], function ()
     $this->resource('profissional', 'ProfissionalController');
     $this->resource('paciente', 'PacienteController');
     $this->resource('agenda', 'AgendaController');
+    $this->resource('pessoa', 'PessoaController');
+    $this->resource('nivel-acesso', 'NivelAcessoController');
 
 
 
