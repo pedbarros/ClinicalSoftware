@@ -23,6 +23,7 @@ class AgendaController extends Controller
      */
     public function index()
     {
+        // dd(["DATA_TESTE" => "PEDRO"]);
         $request = Request::create('/api/profissional', 'GET');
         $profissionais = json_decode(Route::dispatch($request)->getContent());
         // dd($profissionais);
@@ -33,7 +34,6 @@ class AgendaController extends Controller
 
         $request = Request::create('/api/agenda', 'GET');
         $agendas = json_decode(Route::dispatch($request)->getContent());
-       //  dd($agendas);
 
         return view('admin.agenda.index', compact('profissionais', 'pacientes', 'agendas'));
     }

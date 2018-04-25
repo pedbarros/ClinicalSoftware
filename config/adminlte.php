@@ -179,6 +179,11 @@ return [
                 ],
             ],
         ],
+
+       /* [
+            'text'    => 'Sair do sistema',
+            'url'  => '/especialidade-profissao',
+        ],*/
     ],
 
     /*

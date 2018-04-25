@@ -15,6 +15,9 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
+    <link rel="stylesheet" href="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.css" />
+    <link rel="stylesheet" href="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.print.min.css" />
+
     @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -63,7 +66,8 @@
 @endif
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.13/jquery.mask.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/locale/pt.js"></script>
+<script src="{{ asset('js/moment.js') }}"></script>
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
 @stack('scripts')
 @yield('adminlte_js')
 

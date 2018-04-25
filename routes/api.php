@@ -26,14 +26,17 @@ Route::group([/*'middleware' => 'jwt.auth', */'namespace' => 'API'], function ()
     $this->resource('profissao', 'ProfissaoController');
     $this->resource('especialidade', 'EspecialidadeController');
     $this->resource('plano', 'PlanoController');
-    //dia_semana
     $this->any('horario/{prof}', 'HorarioController@obterHorarioMedico');
     $this->resource('horario', 'HorarioController');
     $this->resource('profissional', 'ProfissionalController');
     $this->resource('paciente', 'PacienteController');
     $this->resource('agenda', 'AgendaController');
+    $this->post('agenda-dia', 'AgendaController@obterAgendaDoDia');
     $this->resource('pessoa', 'PessoaController');
     $this->resource('nivel-acesso', 'NivelAcessoController');
+
+
+    $this->get('qtd-atendimentos', 'AgendaController@quantidadeAgendamentosEmDeterminadoMes');
 
 
 

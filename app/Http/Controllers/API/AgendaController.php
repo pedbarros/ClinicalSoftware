@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\Agenda;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,6 +21,39 @@ class AgendaController extends Controller
     public function show($id)
     {
         return response()->json(Agenda::with('paciente', 'profissional')->find($id), 201);
+    }
+
+    public function obterAgendaDoDia(Request $request)
+    {
+        /*$agenda = Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades');
+
+        if (isset($request["data_agendamento"])){
+            dd($request["data_agendamento"]);
+            $agenda->where('data_agendamento', $request["data_agendamento"]);
+        }
+
+        // dd($agenda->toSql());
+        return response()->json($agenda->get(), 201);*/
+    }
+
+
+    public function quantidadeAgendamentosEmDeterminadoMes()
+    {
+        $qtd = DB::select("SELECT status_agendamento, sigla_status, COUNT(status_agendamento) qtd
+                                  FROM
+                                    (   SELECT
+                                            (   CASE a.status_agendamento
+                                                WHEN 'C' THEN 'Atendidos'
+                                                WHEN 'F' THEN 'Faltou'
+                                                WHEN 'E' THEN 'Em espera'
+                                                ELSE 'Sem status' END ) AS status_agendamento,
+                                            a.status_agendamento AS sigla_status
+                                        FROM agendas a WHERE DATE_FORMAT(a.data_agendamento, '%Y%m') = '201804'
+                                    ) AS A
+                                  GROUP BY status_agendamento, sigla_status");
+
+        //dd($qtd);
+        return response()->json($qtd, 201);
     }
 
     // INSERT

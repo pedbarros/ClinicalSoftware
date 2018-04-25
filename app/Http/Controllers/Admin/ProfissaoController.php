@@ -37,6 +37,8 @@ class ProfissaoController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request = Request::create('/api/profissao', 'POST', $request->all());
         $profissao = json_decode(Route::dispatch($request)->getContent());
 
