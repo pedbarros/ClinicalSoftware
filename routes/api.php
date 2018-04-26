@@ -31,12 +31,13 @@ Route::group([/*'middleware' => 'jwt.auth', */'namespace' => 'API'], function ()
     $this->resource('profissional', 'ProfissionalController');
     $this->resource('paciente', 'PacienteController');
     $this->resource('agenda', 'AgendaController');
-    $this->post('agenda-dia', 'AgendaController@obterAgendaDoDia');
     $this->resource('pessoa', 'PessoaController');
     $this->resource('nivel-acesso', 'NivelAcessoController');
 
 
-    $this->get('qtd-atendimentos', 'AgendaController@quantidadeAgendamentosEmDeterminadoMes');
+    // BUSCA REFERENTE A AGENDA
+    $this->any('qtd-atendimentos/{anomes}', 'AgendaController@quantidadeAgendamentosEmDeterminadoMes');
+    $this->post('agenda-dia', 'AgendaController@obterAgendaDoDia');
 
 
 

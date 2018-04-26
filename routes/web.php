@@ -53,9 +53,32 @@ $this->post('/login2', function (\Illuminate\Http\Request $request) {
 
 
 
+$this->get('/obterPartidos', function (\Illuminate\Http\Request $request) {
+    $guzzle = new GuzzleHttp\Client;
+
+    $result = $guzzle->get('api/profissao', [
+        'headers' => [
+            //'Authorization' => "Bearer {$this->token}",
+        ]
+    ]);
+
+    $products = json_decode($result->getBody());
+    dd($products);
+});
 
 
 
+$this->get('/salvarPartidos', function (\Illuminate\Http\Request $request) {
+    /*$parameters = array (
+        'descricao' => 'sudhasud'
+    );
+
+    $request = Request::create('/v1/places', 'GET', $parameters);
+    Request::replace($request->input());
+    $data_places = json_decode(Route::dispatch($request)->getContent());
+
+    dd($data_places);*/
+});
 
 
 

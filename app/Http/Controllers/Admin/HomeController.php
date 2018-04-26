@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $request = Request::create('/api/qtd-atendimentos', 'GET');
+        $request = Request::create('/api/qtd-atendimentos/' . date('Ym'), 'GET');
         $qtdAtendimentos = json_decode(Route::dispatch($request)->getContent());
 
         return view('admin.home.index', compact('qtdAtendimentos'));

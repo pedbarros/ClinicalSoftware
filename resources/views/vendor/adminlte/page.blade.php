@@ -117,6 +117,9 @@
 
                 <!-- Content Header (Page header) -->
                     <section class="content-header">
+                        <ol class="breadcrumb">
+                            <li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Início</a></li>
+                        </ol>
                         @yield('content_header')
                     </section>
 

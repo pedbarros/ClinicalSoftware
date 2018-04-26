@@ -34,14 +34,13 @@
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                        </button> -->
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body no-padding">
                     <div class="row">
-
                         @foreach($qtdAtendimentos as $qtdAtendimento)
                             <div class="col-md-3">
                                 <div class="info-box bg-red">
@@ -70,91 +69,7 @@
                                 </div>
                             </div>
                         @endforeach
-                        {{--
-                        <div class="col-md-3">
-                            <div class="info-box bg-green">
-                                <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Atendidos</span>
-                                    @foreach($qtdAtendimentos as $qtdAtendimento)
-                                        @if($qtdAtendimento->sigla_status== "C")
-                                            <span class="info-box-number">{{  $qtdAtendimento->qtd }}</span>
-                                            @break
-                                        @endif
-                                    @endforeach
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 50%"></div>
-                                    </div>
-                                    <span class="progress-description">Clique aqui...</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="info-box bg-blue">
-                                <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Em espera</span>
-                                    @foreach($qtdAtendimentos as $qtdAtendimento)
-                                        @if($qtdAtendimento->sigla_status== "E")
-                                            <span class="info-box-number">{{  $qtdAtendimento->qtd }}</span>
-                                            @break
-                                        @endif
-                                    @endforeach
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 50%"></div>
-                                    </div>
-                                    <span class="progress-description">Clique aqui...</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-3">
-                            <div class="info-box bg-yellow">
-                                <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Pendentes</span>
-                                    @foreach($qtdAtendimentos as $qtdAtendimento)
-                                        @if($qtdAtendimento->sigla_status== "P")
-                                            <span class="info-box-number">{{  $qtdAtendimento->qtd }}</span>
-                                        @endif
-                                    @endforeach
-                                    <div class="progress">
-                                        <div class="progress-bar" style="width: 50%"></div>
-                                    </div>
-                                    <span class="progress-description">Clique aqui...</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="info-box bg-red">
-                                <span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
-
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Faltas</span>
-                                    @foreach($qtdAtendimentos as $qtdAtendimento)
-                                        @if($qtdAtendimento->sigla_status== "F")
-                                            <span class="info-box-number">{{  $qtdAtendimento->qtd }}</span>
-                                        @endif
-                                    @endforeach
-                                    <div class="progress">
-                                        <div class="progress-bar"></div>
-                                    </div>
-                                    <span class="progress-description">Clique aqui...</span>
-                                </div>
-                            </div>
-                        </div>
---}}
                     </div>
-
                 </div>
             </div>
         </div>
@@ -173,8 +88,8 @@
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
                                     class="fa fa-minus"></i>
                         </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
-                        </button>
+                        <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                        </button> -->
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -182,7 +97,7 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <a class="users-list-name" href="#">
+                            <a class="users-list-name" href="{{ url('agenda') }}">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-red"><i
                                                 class="glyphicon glyphicon-calendar"></i></span>
@@ -214,7 +129,7 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <a class="users-list-name" href="#">
+                            <a class="users-list-name" href="{{ url('paciente') }}">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline"></i></span>
 
@@ -247,7 +162,7 @@
                     <div class="row">
 
                         <div class="col-md-6">
-                            <a class="users-list-name" href="#">
+                            <a class="users-list-name" href="{{ url('profissional') }}">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-red"><i class="glyphicon glyphicon-user"></i></span>
 
@@ -260,7 +175,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <a class="users-list-name" href="#">
+                            <a class="users-list-name" href="{{ url('horario-profissional') }}">
                                 <div class="info-box">
                                     <span class="info-box-icon bg-red"><i
                                                 class="glyphicon glyphicon-list-alt"></i></span>

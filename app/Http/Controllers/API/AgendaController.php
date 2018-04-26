@@ -37,8 +37,10 @@ class AgendaController extends Controller
     }
 
 
-    public function quantidadeAgendamentosEmDeterminadoMes()
+    public function quantidadeAgendamentosEmDeterminadoMes($anomes)
     {
+        //  '201804'
+        // " .$request['MESANO'] ."
         $qtd = DB::select("SELECT status_agendamento, sigla_status, COUNT(status_agendamento) qtd
                                   FROM
                                     (   SELECT
@@ -48,7 +50,7 @@ class AgendaController extends Controller
                                                 WHEN 'E' THEN 'Em espera'
                                                 ELSE 'Sem status' END ) AS status_agendamento,
                                             a.status_agendamento AS sigla_status
-                                        FROM agendas a WHERE DATE_FORMAT(a.data_agendamento, '%Y%m') = '201804'
+                                        FROM agendas a WHERE DATE_FORMAT(a.data_agendamento, '%Y%m') = " . $anomes ."
                                     ) AS A
                                   GROUP BY status_agendamento, sigla_status");
 
