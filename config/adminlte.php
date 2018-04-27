@@ -116,13 +116,11 @@ return [
         ],
         [
             'text'        => 'Agenda',
-            'url'         => '/agenda',
             'icon'        => 'calendar',
-            'label_color' => 'success',
             'submenu' => [
                 [
                     'text' => 'Inserir agendamento',
-                    'url'  => '/agenda',
+                    'url'  => '/agenda/create',
                 ],
                 [
                     'text' => 'Consultar agenda',

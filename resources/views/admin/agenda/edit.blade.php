@@ -8,17 +8,7 @@
 
 @section('content')
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
-    @if(session('error'))
-        <div class="alert alert-danger">
-            {{ session('error') }}
-        </div>
-    @endif
+    @include('admin.includes.alerts')
 
     <form method="POST" action="{{url('agenda', [$agenda->id])}}">
         @csrf
@@ -65,7 +55,7 @@
                     <select class="form-control" name="paciente_id" id="paciente_id">
                         @foreach($pacientes as $paciente)
                             <option @if((int) $agenda->paciente_id === $paciente->id) selected
-                                    @endif value="{{ $paciente->id }}">{{ $paciente->pessoa->nome }}</option>
+                                    @endif value="{{ $paciente->id }}">{{ $paciente->pessoas->nome }}</option>
                         @endforeach
                     </select>
                 </div>

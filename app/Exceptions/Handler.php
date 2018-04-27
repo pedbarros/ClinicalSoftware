@@ -50,6 +50,7 @@ class Handler extends ExceptionHandler
     {
 
         // dd($request);
+        // dd($exception);
         if ($request->is('api/*')) {
             //dd("da apiu");
         } else {

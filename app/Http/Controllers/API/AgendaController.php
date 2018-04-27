@@ -23,17 +23,20 @@ class AgendaController extends Controller
         return response()->json(Agenda::with('paciente', 'profissional')->find($id), 201);
     }
 
-    public function obterAgendaDoDia(Request $request)
+    public function searchAgenda(Request $request)
     {
         // dd($request->all());
         $agenda = Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades');
 
-        if (isset($request["data_agendamento"])){
-            // dd($request["data_agendamento"]);
-            $agenda->where('data_agendamento', $request["data_agendamento"]);
-        }
-
-        // dd($agenda->toSql());
+        $agenda->where(function($query) use ($request) {
+            if (isset($request['data_agendamento']))
+                $query->where('data_agendamento', $request['data_agendamento']);
+            if (isset($request['profissional_id']))
+                $query->where('profissional_id', $request['profissional_id']);
+            if (isset($request['paciente_id']))
+                $query->where('paciente_id', $request['paciente_id']);
+        });
+       // dd($agenda->toSql());
         return response()->json($agenda->get(), 201);
     }
 

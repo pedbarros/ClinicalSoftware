@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Agenda;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Route;
 
 class AgendaController extends Controller
@@ -23,19 +24,31 @@ class AgendaController extends Controller
      */
     public function index()
     {
+        Input::merge(["data_agendamento" => date('Y-m-d')]);
+        $request = Request::create('/api/search-agenda', 'POST');
+        $agendas = json_decode(Route::dispatch($request)->getContent());
+
         $request = Request::create('/api/profissional', 'GET');
         $profissionais = json_decode(Route::dispatch($request)->getContent());
         // dd($profissionais);
 
         $request = Request::create('/api/paciente', 'GET');
         $pacientes = json_decode(Route::dispatch($request)->getContent());
-        /// dd($especialidades);
-
-        $request = Request::create('/api/agenda', 'GET');
-        $agendas = json_decode(Route::dispatch($request)->getContent());
-
 
         return view('admin.agenda.index', compact('profissionais', 'pacientes', 'agendas'));
+    }
+
+
+    public function create()
+    {
+        $request = Request::create('/api/profissional', 'GET');
+        $profissionais = json_decode(Route::dispatch($request)->getContent());
+        // dd($profissionais);
+
+        $request = Request::create('/api/paciente', 'GET');
+        $pacientes = json_decode(Route::dispatch($request)->getContent());
+
+        return view('admin.agenda.create', compact('profissionais', 'pacientes'));
     }
 
 
@@ -102,5 +115,27 @@ class AgendaController extends Controller
                 ->back()
                 ->with('error', 'Falha ao apagar o agenda');
         }
+    }
+
+
+
+    public function searchAgenda(Request $request)
+    {
+
+        $dataForm = array_filter($request->except('_token'));
+
+        $request = Request::create('/api/profissional', 'GET');
+        $profissionais = json_decode(Route::dispatch($request)->getContent());
+        // dd($profissionais);
+
+        $request = Request::create('/api/paciente', 'GET');
+        $pacientes = json_decode(Route::dispatch($request)->getContent());
+
+        Input::replace($dataForm);
+        $request1 = Request::create('/api/search-agenda', 'POST');
+        $agendas = json_decode(Route::dispatch($request1)->getContent());
+       // dd($agendas);
+
+        return view('admin.agenda.index', compact('profissionais', 'pacientes', 'agendas'));
     }
 }

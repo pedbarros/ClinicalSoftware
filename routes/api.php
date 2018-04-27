@@ -37,7 +37,7 @@ Route::group([/*'middleware' => 'jwt.auth', */'namespace' => 'API'], function ()
 
     // BUSCA REFERENTE A AGENDA
     $this->any('qtd-atendimentos/{anomes}', 'AgendaController@quantidadeAgendamentosEmDeterminadoMes');
-    $this->post('agenda-dia', 'AgendaController@obterAgendaDoDia');
+    $this->post('search-agenda', 'AgendaController@searchAgenda');
 
 
 
