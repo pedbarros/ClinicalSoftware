@@ -95,6 +95,6 @@
 
 
     @push('scripts')
-            
+
     @endpush
 @stop
