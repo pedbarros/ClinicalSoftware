@@ -22,77 +22,15 @@ $this->group(['middleware' => 'auth'], function () {
 Auth::routes();
 
 // ROTAS DE LOGIN
-$this->post('/login', function (\Illuminate\Http\Request $request, \Tymon\JWTAuth\JWTAuth $jwtAuth) {
-    // dd($request->all());
-    try {
-        if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
-            $user = Auth::user();
-            $token = $jwtAuth->fromUser($user);
-            // session('token');
-            session(['token' => $token]);
-            // dd($token);
-            return redirect()->route('home');
-        } else {
-            return "Incorreta parceiro!";
-        }
-    } catch (JWTException $e) {
-        return response()->json(['access' => false, 'error' => 'Não foi possível criar token'], 500);
-    }
-})->name('login');
+$this->post('/login', 'Admin\LoginController@auth')->name('login');
 
 
-// ROTAS DE LOGIN
-$this->post('/login2', function (\Illuminate\Http\Request $request) {
-    // dd($request->all());
-    if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
-        return redirect()->route('home');
-    } else {
-        return "Incorreta parceiro!";
-    }
-})->name('login2');
+/*
+  // ENVIANDO DADOS SEM UTILIZAR O REQUEST ($request->all())
+    Input::merge(["dia_semana" => "2", "desc" => "Pedroviks"]);
+        $request = Request::create('/api/agenda-dia', 'POST');
+        $response = Route::dispatch($request);
 
+        dd($response);
 
-
-$this->get('/obterPartidos', function (\Illuminate\Http\Request $request) {
-    $guzzle = new GuzzleHttp\Client;
-
-    $result = $guzzle->get('api/profissao', [
-        'headers' => [
-            //'Authorization' => "Bearer {$this->token}",
-        ]
-    ]);
-
-    $products = json_decode($result->getBody());
-    dd($products);
-});
-
-
-
-$this->get('/salvarPartidos', function (\Illuminate\Http\Request $request) {
-    /*$parameters = array (
-        'descricao' => 'sudhasud'
-    );
-
-    $request = Request::create('/v1/places', 'GET', $parameters);
-    Request::replace($request->input());
-    $data_places = json_decode(Route::dispatch($request)->getContent());
-
-    dd($data_places);*/
-});
-
-
-
-
-
-
-
-/* $this->any('search/', 'PacienteController@search')->name("paciente.search");
-
-       $this->get('{paciente}/registros', 'RegistroClinicoController@index')->name("paciente.registros");
-
-       //VISUALIZAR REGISTROS CLINICOS
-       $this->get('{paciente}/registros/{rcl_cod}/{rcl_dthr}', 'RegistroClinicoController@show')->name("registro.show");
-
-
-       //NOVO REGISTRO CLINICO
-       $this->get('{paciente}/qst-sos', 'QuestionarioController@index')->name("paciente.qst-sos");*/
+ */

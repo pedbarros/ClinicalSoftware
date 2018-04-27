@@ -25,6 +25,7 @@ class AgendaController extends Controller
 
     public function obterAgendaDoDia(Request $request)
     {
+        dd($request->all());
         /*$agenda = Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades');
 
         if (isset($request["data_agendamento"])){

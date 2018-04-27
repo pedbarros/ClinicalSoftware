@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Profissao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Route;
 
 class ProfissaoController extends Controller

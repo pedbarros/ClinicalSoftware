@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Pessoa;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -54,50 +57,23 @@ class LoginController extends Controller
         }
 
     }
-    /*
 
-    public function edit($id)
-    {
-        $request = Request::create('/api/pessoa/' . $id, 'GET');
-        $Pessoa = json_decode(Route::dispatch($request)->getContent());
-//dd($Pessoa);
-        $request = Request::create('/api/profissional', 'GET');
-        $profissionais = json_decode(Route::dispatch($request)->getContent());
-        // dd($profissionais);
-
-
-        $dia_semana = $this->dia_semana;
-        return view('admin.login-pessoa.edit', compact('Pessoa',  'profissionais', 'dia_semana'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request = Request::create('/api/pessoa/'.$id, 'PUT', $request->all());
-        $Pessoa = json_decode(Route::dispatch($request)->getContent());
-        if ($Pessoa) {
-            return redirect()
-                ->route('login-pessoa.index')
-                ->with('success', 'Pessoa atualizado com sucesso!');
-        } else {
-            return redirect()
-                ->back()
-                ->with('error', 'Falha ao atualizar o Pessoa');
+    function auth(Request $request, JWTAuth $jwtAuth) {
+        // dd($request->all());
+        try {
+            if (Auth::attempt(['usuario' => $request->get('usuario'), 'password' => $request->get('password')], false)) {
+                $user = Auth::user();
+                $token = $jwtAuth->fromUser($user);
+                // session('token');
+                session(['token' => $token]);
+                // dd($token);
+                return redirect()->route('home');
+            } else {
+                return "Incorreta parceiro!";
+            }
+        } catch (JWTException $e) {
+            return response()->json(['access' => false, 'error' => 'Não foi possível criar token'], 500);
         }
     }
 
-    public function destroy($id)
-    {
-        $request = Request::create('/api/Pessoa/'.$id, 'DELETE');
-        $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
-        // dd($statusCode);
-        if ($statusCode == 204) { // No Content
-            return redirect()
-                ->route('login-pessoa.index')
-                ->with('success', 'Pessoa apagado com sucesso!');
-        } else {
-            return redirect()
-                ->back()
-                ->with('error', 'Falha ao apagar o Pessoa');
-        }
-    }*/
 }
