@@ -43,6 +43,10 @@ class Agenda extends Model
         return $opStatus[$status];
     }
 
+    public static function getAllRelations(){
+        return Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades');
+    }
+
    /* public function teste()
     {
         return $this->hasManyThrough(

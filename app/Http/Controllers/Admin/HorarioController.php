@@ -88,7 +88,7 @@ class HorarioController extends Controller
         public function destroy($id)
         {
             $request = Request::create('/api/horario/'.$id, 'DELETE');
-            $statusCode = json_decode(Route::dispatch($request)->getStatusCode());
+            $statusCode = json_decode(Route::dispatch($request)->getContent());
             // dd($statusCode);
             if ($statusCode == 204) { // No Content
                 return redirect()
