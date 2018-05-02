@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Search\AgendaSearch;
 use App\Models\Agenda;
 use Illuminate\Support\Facades\DB;
 use Validator;
@@ -14,30 +15,18 @@ class AgendaController extends Controller
     public function index()
     {
         //return response()->json(Agenda::all(), 201);
-        return response()->json(Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades')->get(), 201);
+        return response()->json(Agenda::getAllRelations()->get(), 201);
     }
 
     // SELECT * FROM ALL WHERE ID = :PARAMS
     public function show($id)
     {
-        return response()->json(Agenda::with('paciente', 'profissional')->find($id), 201);
+        return response()->json(Agenda::getAllRelations()->find($id), 201);
     }
 
     public function searchAgenda(Request $request)
     {
-        // dd($request->all());
-        $agenda = Agenda::with('paciente', 'paciente.pessoas', 'profissional', 'profissional.pessoas', 'profissional.especialidades');
-
-        $agenda->where(function($query) use ($request) {
-            if (isset($request['data_agendamento']))
-                $query->where('data_agendamento', $request['data_agendamento']);
-            if (isset($request['profissional_id']))
-                $query->where('profissional_id', $request['profissional_id']);
-            if (isset($request['paciente_id']))
-                $query->where('paciente_id', $request['paciente_id']);
-        });
-       // dd($agenda->toSql());
-        return response()->json($agenda->get(), 201);
+        return response()->json(AgendaSearch::apply($request), 201);
     }
 
 
@@ -72,16 +61,54 @@ class AgendaController extends Controller
     // INSERT
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+
+        try {
+            $validator = Validator::make($request->all(), [
+                "profissional_id" => 'required|integer|max:11',
+                "data_agendamento"=> 'required|string',
+                "horario_inicial"=> 'required|string',
+                "horario_final"=> 'required|string',
+
+                "obs"=> 'required|string|max:100',
+                "status_agendamento" => 'required|string|max:1',
+                "paciente_id"=> 'required|integer|max:11',
+
+                'data_agendamento'=>'unique:agendas,data_agendamento,NULL,id,profissional_id,' . $request->get('id'),
+            ]);
+            //dd($validator->errors());
+
+            if ($validator->fails()) {
+                return response()->json(['error' => 'Os campos não foram validados'], 401);
+            }
+
+            $agenda = Agenda::create($request->all());
+
+            return response()->json(['store' => true, 'msg' => $agenda], 201);
+        } catch (\Exception $e) {
+            // dd($e->errorInfo[1]);
+            $codigo_erro = $e->errorInfo[1];
+
+            if ($codigo_erro == 1062)
+                $msg = "Já existe agendamento no horário especificado para esse profissional!";
+            else
+                $msg = "Erro ao cadastrar o profissional ao plano!";
+            return response()->json(['store' => false, 'msg' => $msg], 500);
+        }
+
+
+        /*$validator = Validator::make($request->all(), [
+            "profissional_id" => 'required|integer|max:11',
             "data_agendamento"=> 'required|string',
             "horario_inicial"=> 'required|string',
             "horario_final"=> 'required|string',
+
             "obs"=> 'required|string|max:100',
             "status_agendamento" => 'required|string|max:1',
-            "profissional_id" => 'required|integer|max:11',
             "paciente_id"=> 'required|integer|max:11',
+
+            'data_agendamento'=>'unique:agendas,data_agendamento,NULL,id,profissional_id,' . $request->get('id'),
         ]);
-        // dd($validator->errors());
+        //dd($validator->errors());
 
         if ($validator->fails()) {
             return response()->json(['error' => 'Os campos não foram validados'], 401);
@@ -89,7 +116,9 @@ class AgendaController extends Controller
 
         $agenda = Agenda::create($request->all());
 
-        return response()->json($agenda, 201);
+       // dd($agenda);
+
+        return response()->json($agenda, 201);*/
 
     }
 

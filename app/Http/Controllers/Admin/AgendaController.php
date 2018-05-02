@@ -54,19 +54,45 @@ class AgendaController extends Controller
 
     public function store(Request $request)
     {
+        $horarios = explode(" - ", $request["horario"]);
+        $request["horario_inicial"] = $horarios[0];
+        $request["horario_final"] = $horarios[1];
         // dd($request->all());
+
+        $req = Request::create('/api/agenda', 'POST', $request->all());
+
+        $agenda =  Route::dispatch($req)->getData() ;
+// dd($agenda);
+        if ($agenda->store == true) {
+            return redirect()
+                ->route('agenda.create')
+                ->with('success', 'Agenda inserido com sucesso!');
+        } else {
+            return redirect()
+                ->back()
+                ->with('error', $agenda->msg);
+        }
+
+
+
+        /*// dd($request->all());
+        $horarios = explode(" - ", $request["horario"]);
+        $request["horario_inicial"] = $horarios[0];
+        $request["horario_final"] = $horarios[1];
+       // dd($request->all());
+
         $request = Request::create('/api/agenda', 'POST', $request->all());
         $agenda = json_decode(Route::dispatch($request)->getContent());
-// dd($agenda);
+//dd($agenda);
         if ($agenda) {
             return redirect()
-                ->route('agenda.index')
+                ->route('agenda.create')
                 ->with('success', 'Agenda inserido com sucesso!');
         } else {
             return redirect()
                 ->back()
                 ->with('error', 'Falha ao inserir o Agenda');
-        }
+        }*/
 
     }
 

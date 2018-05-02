@@ -2,12 +2,14 @@
 
 @section('title', 'Cadastro de Agendas dos profissionais')
 
-@include('admin.includes.alerts')
 
 @section('content')
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        @csrf
+    @include('admin.includes.alerts')
+
+
+    <form action="{{ route('agenda.store') }}" method="POST" enctype="multipart/form-data">
+        {!! csrf_field() !!}
         <div class="form-group">
             <div class=" row">
                 <div class="col-sm-2">
@@ -80,12 +82,29 @@
                       headers: {"Authorization": "Bearer " + tokenAPI},
                       success: (data) => {
                           // console.log(data)
+
                             $.each(data, function (i, item) {
-                                var time = moment( item.horario_inicio, 'HH:mm' )
-                                while (time.format('HH:mm') <= item.horario_final){
-                                    console.log("time: " + time.format('HH:mm') + " i: " + i)
-                                    time.add('30', 'minutes')
-                                }
+                            var time = moment( item.horario_inicio, 'HH:mm' )
+
+                            var today  = moment("2018-10-23 "+ item.horario_final);
+                            var day = moment("2018-10-23 " + item.horario_inicio);
+
+                            var diferencaEmMinutos = moment.duration(today.diff(day)).asMinutes();
+
+                            var tempoConsulta = (diferencaEmMinutos/item.quantidade_consultas)
+
+                            console.log(tempoConsulta)
+
+                            for (var x = 0; x < item.quantidade_consultas; x++){
+                                // console.log("horários: " + time.format('HH:mm') + ' - ' + time.add(tempoConsulta, 'minutes').format('HH:mm') )
+                                var horario = time.format('HH:mm') + ' - ' + time.add(tempoConsulta, 'minutes').format('HH:mm');
+
+                                var selectHorario = document.getElementById("horario");
+                                var option = document.createElement("option");
+                                option.text = horario;
+                                selectHorario.add(option);
+                            }
+
                            });
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
