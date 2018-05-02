@@ -27,27 +27,21 @@ class Agenda extends Model
         return $this->belongsTo('App\Models\Profissional', 'profissional_id');
     }
 
-
-    public function status_agendamento($status = null)
+    public function getHorarioInicialAttribute( $horario )
     {
-        $opStatus = [
-            'C' => 'Concluído',
-            'E'      => 'Em espera',
-            'F'    => 'Faltou',
-            'X'    => 'Cancelado',
-        ];
-
-        if (!$status)
-            return $opStatus;
-
-        return $opStatus[$status];
+        if ( $horario === null ){
+            return "";
+        }
+        return $horario;
     }
 
-   /* public function teste()
+    public function getHorarioFinalAttribute( $horario )
     {
-        return $this->hasManyThrough(
-            'App\Owner', 'App\Network',
-            'location_id', 'network_id', 'id'
-        );
-    }*/
+        if ( $horario === null ){
+            return "";
+        }
+        return $horario;
+    }
+
+
 }
