@@ -10,16 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 class PlanoProfissionalController extends Controller
 {
-    private $plano;
-    private $profissional;
-
-    public function __construct(Plano $plano, Profissional $profissional)
-    {
-        $this->plano = $plano;
-        $this->profissional = $profissional;
-    }
-
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

@@ -9,13 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 class EspecialidadeController extends Controller
 {
-    private $especialidade;
-
-    public function __construct(Especialidade $especialidade)
-    {
-        $this->especialidade = $especialidade;
-    }
-
     /**
      * Display a listing of the resource.
      *

@@ -12,13 +12,6 @@ use Tymon\JWTAuth\JWTAuth;
 
 class LoginController extends Controller
 {
-    private $pessoa;
-
-    public function __construct(Pessoa $pessoa)
-    {
-        $this->pessoa = $pessoa;
-    }
-
     /**
      * Display a listing of the resource.
      *

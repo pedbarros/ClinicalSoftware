@@ -1,11 +1,17 @@
 <?php
 
 $this->get('/pedro', function () {
-    \Illuminate\Support\Facades\Input::merge(["profissional_id" => "3"]);
-    $request = \Illuminate\Http\Request::create('/api/search-agenda', 'POST');
-    $response = \Illuminate\Support\Facades\Route::dispatch($request);
+    /*$profissionais = DB::table('profissionais')
+        //->leftJoin('horarios', 'profissionais.id', '=', 'horarios.profissional_id')
+        ->join('horarios', 'profissionais.id', '=', 'horarios.profissional_id')
+        ->get();*/
 
-    dd($response);
+    /*$profissionais = DB::table('profissionais')
+                    ->leftJoin('horarios', function ($join) {
+                        $join->on('profissionais.id', '=', 'horarios.profissional_id');
+                    })
+                    ->get();*/
+
 });
 
 
@@ -25,7 +31,7 @@ $this->group(['middleware' => 'auth'], function () {
         $this->resource('agenda', 'AgendaController');
         $this->resource('login-pessoa', 'LoginController');
 
-        $this->any('agenda-search', 'AgendaController@searchAgenda')->name('agenda.search');;
+        $this->any('agenda-search', 'AgendaController@searchAgenda')->name('agenda.search');
     });
 });
 

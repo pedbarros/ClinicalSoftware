@@ -28,7 +28,7 @@ class Agenda extends Model
     }
 
 
-    public function status_agendamento($status = null)
+    /*public function status_agendamento_por_extenso($status = null)
     {
         $opStatus = [
             'C' => 'Concluído',
@@ -41,13 +41,21 @@ class Agenda extends Model
             return $opStatus;
 
         return $opStatus[$status];
+    }*/
+
+    public function getHorarioInicialAttribute( $horario )
+    {
+        if ( $horario === null ){
+            return "";
+        }
+        return $horario;
     }
 
-   /* public function teste()
+    public function getHorarioFinalAttribute( $horario )
     {
-        return $this->hasManyThrough(
-            'App\Owner', 'App\Network',
-            'location_id', 'network_id', 'id'
-        );
-    }*/
+        if ( $horario === null ){
+            return "";
+        }
+        return $horario;
+    }
 }

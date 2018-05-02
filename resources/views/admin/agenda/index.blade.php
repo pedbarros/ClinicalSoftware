@@ -33,7 +33,7 @@
                         </select>
                         <button type="submit" class="btn btn-primary">Pesquisar</button>
                     </form>
-
+                    <button type="button" id="btnClearTable" class="btn btn-primary">Pesquisar</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
@@ -52,7 +52,7 @@
                                 <th>Ações</th>
                             <tr>
                             </thead>
-                            <tbody>
+                            <tbody id="conteudoDaTabela">
                             @foreach($agendas as $agenda)
                                 <tr>
                                     <td>{{ $agenda->id }}</td>
@@ -85,5 +85,44 @@
             <!-- /.box -->
         </div>
     </div>
+    @push('scripts')
+        <script>
+            $(document).ready(function () {
+                var tokenAPI = {!! json_encode( session('token') ) !!};
 
+
+                $('#btnClearTable').on('click', function () {
+                    $("#conteudoDaTabela").empty();
+
+                    $.ajax({
+                        url: '/api/search-agenda/',
+                        method: "POST",
+                        // data: { 'dia_semana': diaDaSemana },
+                        headers: {"Authorization": "Bearer " + tokenAPI},
+                        success: (data) => {
+                            // console.log(data)
+                            $.each(data, function (i, elem) {
+                                var a = "@include('admin.includes.alerts')";
+
+                                $("#conteudoDaTabela")
+                                    .append("<tr><td>"+elem.id+"</td><td>"+moment(elem.data_agendamento).format('DD/MM/YYYY')+"</td>   " +
+                                        "<td>"+elem.horario_inicial+"</td><td>"+elem.horario_final+"</td>" +
+                                        "<td>"+elem.status_agendamento+"</td><td>"+elem.profissional.pessoas.nome+"</td>" +
+                                        "<td>"+elem.paciente.pessoas.nome+"</td>"+
+
+                                        "<td style='display: inline-flex;'><a class='btn btn-primary' href='/agenda/" + elem.id + "/edit'>Editar</a>"+
+                                        /*"<form action='agenda/' method='POST'>" +
+                                        " <a onclick='return confirm('Deseja realmente deletar o agendamento de?')? this.parentNode.submit() : void(0);'" +
+                                        " class='btn btn-info'>Apagar </a> </form></td>"+*/
+                                        "</tr>");
+                            });
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert("Ocorreu um erro: " + thrownError);
+                        }
+                    });
+                });
+            });
+        </script>
+    @endpush
 @stop

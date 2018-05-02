@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 class PlanoController extends Controller
 {
-    private $plano;
-
-    public function __construct(Plano $plano)
-    {
-        $this->plano = $plano;
-    }
 
     /**
      * Display a listing of the resource.

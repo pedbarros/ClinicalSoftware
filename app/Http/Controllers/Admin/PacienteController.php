@@ -9,15 +9,9 @@ use Illuminate\Support\Facades\Route;
 
 class PacienteController extends Controller
 {
-    private $paciente;
     private $sexos = ["M" => "Masculino", "F" => "Feminino"];
 
-    public function __construct(Paciente $paciente)
-    {
-        $this->paciente = $paciente;
-    }
-
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -30,6 +24,7 @@ class PacienteController extends Controller
 
         $request = Request::create('/api/plano', 'GET');
         $planos = json_decode(Route::dispatch($request)->getContent());
+
         /// dd($especialidades);
         $sexos = $this->sexos;
         return view('admin.paciente.index', compact('pacientes', 'planos', 'sexos'));
@@ -41,7 +36,7 @@ class PacienteController extends Controller
         // dd($request->all());
         $request = Request::create('/api/paciente', 'POST', $request->all());
         $paciente = json_decode(Route::dispatch($request)->getContent());
-//dd($paciente);
+        //  dd($paciente);
         if ($paciente) {
             return redirect()
                 ->route('paciente.index')

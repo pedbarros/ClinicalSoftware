@@ -9,13 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 class ProfissionalController extends Controller
 {
-    private $profissional;
     private $sexos = ["M" => "Masculino", "F" => "Feminino"];
-
-    public function __construct(Profissional $profissional)
-    {
-        $this->profissional = $profissional;
-    }
 
     /**
      * Display a listing of the resource.

@@ -10,15 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 class EspecialidadeProfissoesController extends Controller
 {
-    private $especialidade;
-    private $profissao;
     private $status = ["A" => "Ativo", "I" => "Inativo"];
-
-    public function __construct(Especialidade $especialidade, Profissao $profissao)
-    {
-        $this->especialidade = $especialidade;
-        $this->profissao = $profissao;
-    }
 
     /**
      * Display a listing of the resource.

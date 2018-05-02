@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Route;
 
 class ProfissaoController extends Controller
 {
-    private $profissao;
-
-    public function __construct(Profissao $profissao)
-    {
-        $this->profissao = $profissao;
-    }
 
     /**
      * Display a listing of the resource.
