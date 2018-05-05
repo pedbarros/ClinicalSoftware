@@ -12,7 +12,8 @@ class ProfissaoController extends Controller
     // SELECT * FROM ALL
     public function index()
     {
-        return response()->json(Profissao::all(), 201);
+        $profissao = Profissao::all(); //paginate(5);
+        return response()->json($profissao, 201);
     }
 
     // INSERT

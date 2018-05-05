@@ -85,6 +85,7 @@
                         @endforelse
                         </tbody>
                     </table>
+                    {{ $profissoes->links() }}
                 </div>
                 <!-- /.box-body -->
             </div>

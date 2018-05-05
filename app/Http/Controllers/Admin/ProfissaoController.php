@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Profissao;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Route;
 
@@ -19,7 +22,9 @@ class ProfissaoController extends Controller
     public function index()
     {
         $request = Request::create('/api/profissao', 'GET');
-        $profissoes = json_decode(Route::dispatch($request)->getContent());
+        $profissoes =  json_decode(Route::dispatch($request)->getContent());
+
+        $profissoes = paginateArray($profissoes);
 
         return view('admin.profissao.index', compact('profissoes'));
     }

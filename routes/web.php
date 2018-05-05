@@ -1,4 +1,7 @@
 <?php
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 
 $this->get('/pedro', function () {
     /*$profissionais = DB::table('profissionais')
